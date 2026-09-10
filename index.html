@@ -384,6 +384,20 @@
             text-align: right;
             min-height: 20px;
         }
+        
+        /* --- NEW: Contact Layout Styles --- */
+        .contact-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap; /* Allows stacking on smaller screens */
+        }
+        
+        .contact-text-links {
+            flex: 1;
+            min-width: 250px;
+        }
 
         .contact-links {
             display: flex;
@@ -419,10 +433,24 @@
             box-shadow: 0 0 20px var(--glow-green);
         }
         
-        .contact-links a.phone:hover {
-            border-color: #f59e0b;
-            background-color: #f59e0b;
-            box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+        .contact-qr {
+            flex-shrink: 0;
+            text-align: center;
+        }
+        
+        .contact-qr img {
+            max-width: 160px;
+            border-radius: 8px;
+            border: 2px dashed var(--accent-blue);
+            transition: all 0.3s ease;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        .contact-qr img:hover {
+            border-color: var(--accent-green);
+            box-shadow: 0 0 20px var(--glow-green);
+            transform: scale(1.05);
         }
 
         /* Footer Styles */
@@ -445,7 +473,9 @@
         @media (max-width: 600px) {
             .resume-controls { justify-content: center; }
             #uploadStatus { text-align: center; }
+            .contact-content { justify-content: center; text-align: center; }
             .contact-links { justify-content: center; }
+            .contact-qr { margin-top: 1.5rem; }
         }
     </style>
 </head>
@@ -493,7 +523,6 @@
                 <p>Date: April 2024</p>
                 <p>Publication: Published Research in the Indian Journal of Technical Education (UGC-CARE Indexed)</p>
                 <p>Details: You modernized legacy meteorological recording systems by developing an automated data-logging solution. This involved integrating a VL53L0X Time-of-Flight (ToF) sensor and an LCD interface to replace mechanical tracking mechanisms. This digital conversion successfully eliminated the need for manual data entry and tracking, achieving real-time measurement precision.</p>
-                <!-- No video for this project -->
             </div>
 
             <div class="project">
@@ -558,11 +587,21 @@
         <!-- Contact Section -->
         <section id="contact">
             <h2>Contact:</h2>
-            <p>Feel free to reach out using the contact details below.</p>
-            <div class="contact-links">
-                <a href="https://github.com/haibatpureabhi0904" target="_blank" class="github">GitHub</a>
-                <a href="https://www.linkedin.com/in/abhishek-haibatpure-94285223b" target="_blank">LinkedIn</a>
-                <a href="mailto:haibatpureabhishek@gmail.com">Email</a>
+            <div class="contact-content">
+                <div class="contact-text-links">
+                    <p>Feel free to reach out using the contact details below.</p>
+                    <div class="contact-links">
+                        <a href="https://github.com/haibatpureabhi0904" target="_blank" class="github">GitHub</a>
+                        <a href="https://www.linkedin.com/in/abhishek-haibatpure-94285223b" target="_blank">LinkedIn</a>
+                        <a href="mailto:haibatpureabhishek@gmail.com">Email</a>
+                    </div>
+                </div>
+                
+                <!-- Instagram QR Code Image -->
+                <div class="contact-qr">
+                    <img src="insta_id.jpeg" alt="Instagram QR Code" title="@AB.HI_09">
+                    <p style="font-family: 'Fira Code', monospace; font-size: 0.8rem; color: var(--accent-green); margin-top: 8px;">Scan to connect</p>
+                </div>
             </div>
         </section>
 
