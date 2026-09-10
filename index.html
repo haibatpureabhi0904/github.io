@@ -8,6 +8,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600&display=swap');
 
         :root {
+            /* Default Dark Mode Variables */
             --bg-base: #050505;
             --bg-card: #121214;
             --text-main: #a1a1aa;
@@ -17,6 +18,37 @@
             --trace-color: #27272a;
             --glow-blue: rgba(56, 189, 248, 0.15);
             --glow-green: rgba(16, 185, 129, 0.15);
+            
+            /* Background gradient overlays for dark mode */
+            --body-overlay: linear-gradient(rgba(0, 0, 0, 0.82), rgba(5, 5, 5, 0.90));
+            --header-overlay: linear-gradient(180deg, rgba(18,18,20,0.75) 0%, rgba(5,5,5,0.85) 100%);
+            --section-overlay: linear-gradient(rgba(0, 0, 0, 0.80), rgba(10, 10, 12, 0.85));
+            --tag-bg: linear-gradient(145deg, rgba(24, 24, 27, 0.85), rgba(15, 15, 17, 0.85));
+            --resume-bg: rgba(0, 0, 0, 0.6);
+            --link-bg: rgba(0,0,0,0.4);
+            --modal-bg: rgba(0, 0, 0, 0.85);
+        }
+
+        /* Light Mode Variables */
+        body.light-mode {
+            --bg-base: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #3f3f46;
+            --text-bright: #18181b;
+            --accent-green: #059669; /* Darker green for contrast */
+            --accent-blue: #0284c7;  /* Darker blue for contrast */
+            --trace-color: #e4e4e7;
+            --glow-blue: rgba(2, 132, 199, 0.15);
+            --glow-green: rgba(5, 150, 105, 0.15);
+            
+            /* Background gradient overlays for light mode */
+            --body-overlay: linear-gradient(rgba(255, 255, 255, 0.90), rgba(245, 245, 250, 0.95));
+            --header-overlay: linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(240,240,245,0.95) 100%);
+            --section-overlay: linear-gradient(rgba(255, 255, 255, 0.93), rgba(250, 250, 255, 0.95));
+            --tag-bg: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(240, 240, 245, 0.9));
+            --resume-bg: rgba(255, 255, 255, 0.8);
+            --link-bg: rgba(255,255,255,0.7);
+            --modal-bg: rgba(255, 255, 255, 0.90);
         }
 
         /* Custom Scrollbar */
@@ -26,45 +58,119 @@
         ::-webkit-scrollbar-thumb:hover { background: var(--accent-green); }
 
         /* Custom Selection */
-        ::selection { background: var(--accent-blue); color: var(--bg-base); }
+        ::selection { background: var(--accent-blue); color: #fff; }
 
         body {
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
             margin: 0;
             padding: 0;
-            background-color: var(--bg-base);
             color: var(--text-main);
-            /* Upgraded Advanced PCB Grid Background */
+            background-color: var(--bg-base);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            
             background-image: 
-                radial-gradient(circle at center, rgba(56, 189, 248, 0.05) 0%, transparent 70%),
-                linear-gradient(var(--trace-color) 1px, transparent 1px),
-                linear-gradient(90deg, var(--trace-color) 1px, transparent 1px);
-            background-size: 100% 100%, 30px 30px, 30px 30px;
+                var(--body-overlay),
+                url('background1.jpg'),
+                url('background.jpg'); 
+            background-size: cover, cover, cover;
             background-position: center center, center center, center center;
             background-attachment: fixed;
+            background-blend-mode: normal, screen, normal; 
+            
             overflow-x: hidden;
+        }
+
+        /* Theme Toggle Switch */
+        .theme-switch-wrapper {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            z-index: 100;
+        }
+        
+        .theme-switch {
+            display: inline-block;
+            height: 30px;
+            position: relative;
+            width: 56px;
+        }
+        
+        .theme-switch input {
+            display: none;
+        }
+        
+        .slider {
+            background-color: #333;
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: .4s;
+            border-radius: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5px;
+            border: 1px solid var(--trace-color);
+        }
+        
+        .slider:before {
+            background-color: #fff;
+            bottom: 3px;
+            content: "";
+            height: 22px;
+            left: 4px;
+            position: absolute;
+            transition: .4s;
+            width: 22px;
+            border-radius: 50%;
+            z-index: 2;
+        }
+        
+        input:checked + .slider {
+            background-color: #e2e8f0;
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(24px);
+            background-color: var(--accent-blue);
+        }
+        
+        .slider .icon {
+            font-size: 14px;
+            z-index: 1;
         }
 
         h1, h2, h3 {
             font-family: 'Fira Code', monospace;
             font-weight: 600;
+            color: var(--text-bright);
         }
 
         header {
             border-bottom: 1px solid var(--trace-color);
-            padding: 5rem 20px;
+            padding: 6rem 20px 5rem;
             text-align: center;
-            background: linear-gradient(180deg, rgba(18,18,20,0.95) 0%, rgba(5,5,5,0.95) 100%);
-            backdrop-filter: blur(5px);
+            /* Updated to use background2.jpg */
+            background-image: 
+                var(--header-overlay),
+                url('background2.jpg');
+            background-size: cover;
+            background-position: center;
+            backdrop-filter: blur(8px);
             position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
         }
 
         header h1 {
             margin: 0;
             font-size: clamp(2rem, 5vw, 3.5rem);
-            color: var(--text-bright);
             letter-spacing: -1px;
             animation: slideDown 0.8s ease-out forwards;
         }
@@ -94,6 +200,7 @@
             font-family: 'Fira Code', monospace;
             opacity: 0;
             animation: fadeIn 1s ease-out 0.5s forwards;
+            font-weight: 600;
         }
 
         .container {
@@ -104,7 +211,15 @@
 
         /* Section Entry Animations */
         section {
-            background: var(--bg-card);
+            /* Lowered opacity for text sections */
+            background-image: 
+                var(--section-overlay),
+                url('background1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: scroll; 
+            
+            backdrop-filter: blur(4px);
             padding: 2.5rem;
             margin-bottom: 2.5rem;
             border-radius: 8px;
@@ -114,7 +229,7 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             opacity: 0;
             animation: slideUp 0.8s ease-out forwards;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
         }
 
         section:nth-child(1) { animation-delay: 0.2s; }
@@ -137,11 +252,10 @@
             border-left-color: var(--accent-green);
             transform: translateX(5px) translateY(-2px);
             box-shadow: 0 10px 30px var(--glow-blue);
-            border-color: rgba(56, 189, 248, 0.3);
+            border-color: rgba(56, 189, 248, 0.4);
         }
 
         h2 {
-            color: var(--text-bright);
             font-size: 1.6rem;
             margin-top: 0;
             display: inline-block;
@@ -163,7 +277,7 @@
         }
 
         .skill-tag {
-            background: linear-gradient(145deg, #18181b, #0f0f11);
+            background: var(--tag-bg);
             padding: 12px 15px;
             border: 1px solid var(--trace-color);
             border-radius: 4px;
@@ -175,6 +289,7 @@
             transition: all 0.2s ease;
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(2px);
         }
 
         .skill-tag:hover {
@@ -214,7 +329,6 @@
         }
 
         .project h3 {
-            color: var(--text-bright);
             margin: 0 0 8px 0;
             font-size: 1.3rem;
             display: flex;
@@ -241,7 +355,7 @@
             font-size: 0.85rem;
             color: var(--accent-green);
             margin-bottom: 12px;
-            background: rgba(16, 185, 129, 0.1);
+            background: rgba(16, 185, 129, 0.15);
             display: inline-block;
             padding: 4px 10px;
             border-radius: 4px;
@@ -249,7 +363,7 @@
 
         .github-link {
             font-size: 0.8rem;
-            color: var(--bg-base);
+            color: #fff;
             background-color: var(--accent-blue);
             padding: 4px 12px;
             border-radius: 4px;
@@ -300,14 +414,17 @@
         .resume-controls {
             display: flex;
             flex-direction: row;
-            justify-content: flex-end;
+            justify-content: space-between; 
+            align-items: center;
             flex-wrap: wrap;
             gap: 15px;
-            background: #09090b;
+            background: var(--resume-bg);
             padding: 25px;
             border: 1px solid var(--trace-color);
             border-radius: 6px;
             position: relative;
+            backdrop-filter: blur(2px);
+            transition: background 0.3s ease;
         }
         
         .resume-controls::before {
@@ -319,7 +436,9 @@
             padding: 0 10px;
             font-family: 'Fira Code', monospace;
             font-size: 0.75rem;
-            color: var(--trace-color);
+            color: var(--text-main);
+            border-radius: 2px;
+            border: 1px solid var(--trace-color);
         }
 
         .btn {
@@ -360,41 +479,62 @@
         }
 
         .btn:hover {
-            color: var(--bg-base);
+            color: #fff;
             box-shadow: 0 0 20px var(--glow-blue);
             border-color: var(--accent-blue);
         }
 
+        .upload-section {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
         .btn-upload {
-            border-color: var(--text-main);
+            border-color: var(--trace-color);
             color: var(--text-main);
+            padding: 5px 10px;         
+            font-size: 0.65rem;        
+            border-width: 1px;
+            text-transform: none;
+            letter-spacing: 0.5px;
+            background-color: var(--link-bg);
         }
         
         .btn-upload::after {
-            background-color: var(--text-main);
+            background-color: var(--text-bright);
         }
 
         .btn-upload:hover {
-            box-shadow: 0 0 15px rgba(161, 161, 170, 0.3);
+            color: var(--bg-base);
+            border-color: var(--text-bright);
+            box-shadow: 0 0 10px rgba(161, 161, 170, 0.3);
         }
 
         #uploadStatus {
             font-family: 'Fira Code', monospace;
-            font-size: 0.85rem;
-            margin: 10px 0 0 0;
+            font-size: 0.75rem;
+            margin: 5px 0 0 0;
             color: var(--accent-green);
-            width: 100%;
-            text-align: right;
-            min-height: 20px;
+            text-align: left;
+            min-height: 15px;
+            font-weight: 600;
         }
-        
-        /* --- NEW: Contact Layout Styles --- */
+
+        #downloadBtn {
+            padding: 16px 32px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            background-color: var(--link-bg);
+        }
+
+        /* --- Contact Layout Styles --- */
         .contact-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 20px;
-            flex-wrap: wrap; /* Allows stacking on smaller screens */
+            flex-wrap: wrap; 
         }
         
         .contact-text-links {
@@ -409,9 +549,9 @@
             margin-top: 1.5rem;
         }
         
-        .contact-links a {
+        .contact-links a, .contact-links button {
             padding: 12px 24px;
-            background-color: transparent;
+            background-color: var(--link-bg);
             color: var(--text-bright);
             text-decoration: none;
             border: 1px solid var(--accent-blue);
@@ -421,11 +561,12 @@
             transition: all 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 1px;
+            cursor: pointer;
         }
 
-        .contact-links a:hover {
+        .contact-links a:hover, .contact-links button:hover {
             background-color: var(--accent-blue);
-            color: var(--bg-base);
+            color: #fff;
             box-shadow: 0 0 20px var(--glow-blue);
             transform: translateY(-2px);
         }
@@ -435,25 +576,67 @@
             background-color: var(--accent-green);
             box-shadow: 0 0 20px var(--glow-green);
         }
-        
-        .contact-qr {
-            flex-shrink: 0;
-            text-align: center;
+
+        .contact-links button.instagram:hover {
+            border-color: #d946ef; 
+            background-color: #d946ef;
+            box-shadow: 0 0 20px rgba(217, 70, 239, 0.4);
         }
-        
-        .contact-qr img {
-            max-width: 160px;
+
+        /* --- Modal Styles --- */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
+            left: 0; 
+            top: 0; 
+            width: 100%; 
+            height: 100%; 
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: var(--modal-bg);
+            padding: 2rem;
+            border: 1px solid #d946ef;
             border-radius: 8px;
-            border: 2px dashed var(--accent-blue);
-            transition: all 0.3s ease;
-            display: block;
-            margin: 0 auto;
+            max-width: 320px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(217, 70, 239, 0.2);
+            animation: slideDownModal 0.3s ease-out;
+            transition: background-color 0.3s ease;
         }
-        
-        .contact-qr img:hover {
-            border-color: var(--accent-green);
-            box-shadow: 0 0 20px var(--glow-green);
-            transform: scale(1.05);
+
+        @keyframes slideDownModal {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .close-btn {
+            color: var(--text-main);
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover {
+            color: #d946ef;
+        }
+
+        .modal-qr-img {
+            max-width: 100%;
+            border-radius: 8px;
+            border: 2px dashed #d946ef;
+            margin-bottom: 20px;
         }
 
         /* Footer Styles */
@@ -465,7 +648,6 @@
             font-family: 'Fira Code', monospace;
             font-size: 0.85rem;
             color: #52525b;
-            background: linear-gradient(0deg, rgba(5,5,5,1) 0%, rgba(5,5,5,0) 100%);
         }
         
         footer p {
@@ -474,15 +656,27 @@
 
         /* Responsive tweaks */
         @media (max-width: 600px) {
-            .resume-controls { justify-content: center; }
+            .resume-controls { flex-direction: column; align-items: stretch; gap: 20px; }
+            .upload-section { align-items: center; width: 100%; }
             #uploadStatus { text-align: center; }
             .contact-content { justify-content: center; text-align: center; }
             .contact-links { justify-content: center; }
-            .contact-qr { margin-top: 1.5rem; }
+            .theme-switch-wrapper { top: 10px; right: 10px; }
         }
     </style>
 </head>
 <body>
+
+    <!-- Theme Toggle -->
+    <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="checkbox">
+            <input type="checkbox" id="checkbox" />
+            <div class="slider round">
+                <span class="icon">🌙</span>
+                <span class="icon">☀️</span>
+            </div>
+        </label>
+    </div>
 
     <header>
         <h1>Abhishek Haibatpure</h1>
@@ -503,7 +697,7 @@
             <div class="skills-grid">
                 <div class="skill-tag">C & Memory Management</div>
                 <div class="skill-tag">STM32 & PIC18 MCUs</div>
-                <div class="skill-tag">UART, I2C, Modbus RTU</div>
+                <div class="skill-tag">UART, I2C, SPI</div>
                 <div class="skill-tag">Proteus VSM</div>
                 <div class="skill-tag">STM32CubeIDE</div>
                 <div class="skill-tag">Microchip XC8</div>
@@ -537,10 +731,13 @@
                 <p>Date: August 2026</p>
                 <p>Tech Stack: STM32, C Programming, Proteus VSM</p>
                 <p>Details: You designed and simulated a bare-metal STM32 Automated Teller Machine (ATM) controller. The core of this project was implementing a robust Finite State Machine (FSM) architecture to manage complex multi-peripheral interfacing. The hardware integrated into the simulation included an ADC joystick, a 4x4 matrix keypad, an 8-bit LCD, and multiplexed 7-segment displays. The entire functionality and logic were successfully validated using Proteus VSM.</p>
-                <video class="project-video" controls preload="metadata">
-                    <source src="atm-demo.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+<iframe class="project-video" 
+    src="https://www.youtube.com/embed/https://youtu.be/x4K6RzOKzXI" 
+    title="ATM Interface Simulation" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+</iframe>
             </div>
 
             <div class="project">
@@ -552,10 +749,13 @@
                 <p>Date: September 2026</p>
                 <p>Tech Stack: Bare-Metal Firmware, UART, GPS/GSM</p>
                 <p>Details: You engineered a bare-metal firmware system specifically designed for real-time tracking. The system utilizes dual-UART processing to simultaneously handle data from GPS and GSM modules. A key technical achievement in this project was the development of an FPU-free (Floating-Point Unit free) integer geofencing algorithm capable of tracking boundary movements across a 40 square kilometer area, paired with an automated multi-modal alert system for when boundaries are breached.</p>
-                <video class="project-video" controls preload="metadata">
-                    <source src="gps-demo.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+<iframe class="project-video" 
+    src="https://www.youtube.com/embed/https://youtu.be/EKI0X5EKHjE" 
+    title="ATM Interface Simulation" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+</iframe>
             </div>
 
             <div class="project">
@@ -567,10 +767,13 @@
                 <p>Date: September 2026</p>
                 <p>Tech Stack: PIC18F4520 Microcontroller, Embedded C, UART</p>
                 <p>Details: You designed an automated, energy-efficient street lighting system driven by Light Dependent Resistor (LDR) sensors. The control logic was developed in Embedded C for a PIC18F4520 microcontroller. The system features a real-time UART communication protocol to enable remote fault monitoring, alongside a PORTB LED indication setup for immediate on-site hardware diagnostics.</p>
-                <video class="project-video" controls preload="metadata">
-                    <source src="street-light-demo.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+<iframe class="project-video" 
+    src="https://www.youtube.com/embed/https://youtu.be/TfeUFVHg4PA" 
+    title="ATM Interface Simulation" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+</iframe>
             </div>
         </section>
 
@@ -578,12 +781,15 @@
         <section id="resume">
             <h2>updated_resume</h2>
             <div class="resume-controls">
-                <label for="resumeUpload" class="btn btn-upload">Upload New Resume</label>
-                <input type="file" id="resumeUpload" style="display: none;" accept=".pdf,.doc,.docx">
                 
-                <a href="Abhi_resume.docx" id="downloadBtn" class="btn" download="Abhishek_Haibatpure_Resume.docx">Download Resume</a>
+                <div class="upload-section">
+                    <label for="resumeUpload" class="btn btn-upload">Upload Resume (Local)</label>
+                    <input type="file" id="resumeUpload" style="display: none;" accept=".pdf,.doc,.docx">
+                    <p id="uploadStatus"></p>
+                </div>
                 
-                <p id="uploadStatus"></p>
+                <a href="Abhi_resume.pdf" id="downloadBtn" class="btn" download="Abhishek_Haibatpure_Resume.docx">Download Resume</a>
+                
             </div>
         </section>
 
@@ -596,14 +802,9 @@
                     <div class="contact-links">
                         <a href="https://github.com/haibatpureabhi0904" target="_blank" class="github">GitHub</a>
                         <a href="https://www.linkedin.com/in/abhishek-haibatpure-94285223b" target="_blank">LinkedIn</a>
+                        <button id="openInstaBtn" class="instagram">Instagram</button>
                         <a href="mailto:haibatpureabhishek@gmail.com">Email</a>
                     </div>
-                </div>
-                
-                <!-- Instagram QR Code Image -->
-                <div class="contact-qr">
-                    <img src="insta_id.jpeg" alt="Instagram QR Code" title="@AB.HI_09">
-                    <p style="font-family: 'Fira Code', monospace; font-size: 0.8rem; color: var(--accent-green); margin-top: 8px;">Scan to connect</p>
                 </div>
             </div>
         </section>
@@ -614,8 +815,44 @@
         <p>&copy; 2026 Abhishek Haibatpure. All rights reserved.</p>
     </footer>
 
-    <!-- JavaScript to handle Resume Upload and Download dynamically -->
+    <!-- Instagram Modal (Hidden by default) -->
+    <div id="instaModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h3 style="margin-top: 0; color: #d946ef; font-family: 'Fira Code', monospace;">> Scan to Connect_</h3>
+            
+            <img src="insta_id.jpeg" alt="Instagram QR Code" class="modal-qr-img">
+            
+            <a href="https://www.instagram.com/ab.hi_09?stkn=NjZ6NzcxNDNjNDI2" target="_blank" class="btn" style="display: block; width: 100%; box-sizing: border-box; border-color: #d946ef; color: var(--text-bright);">Open in Instagram App</a>
+        </div>
+    </div>
+
+    <!-- JavaScript block -->
     <script>
+        // --- Theme Toggle Logic ---
+        const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+        const currentTheme = localStorage.getItem('theme');
+
+        if (currentTheme) {
+            document.body.classList.add(currentTheme);
+            if (currentTheme === 'light-mode') {
+                toggleSwitch.checked = true;
+            }
+        }
+
+        function switchTheme(e) {
+            if (e.target.checked) {
+                document.body.classList.add('light-mode');
+                localStorage.setItem('theme', 'light-mode');
+            } else {
+                document.body.classList.remove('light-mode');
+                localStorage.setItem('theme', 'dark-mode');
+            }    
+        }
+        toggleSwitch.addEventListener('change', switchTheme, false);
+
+
+        // --- Resume Upload Logic ---
         const resumeUpload = document.getElementById('resumeUpload');
         const downloadBtn = document.getElementById('downloadBtn');
         const uploadStatus = document.getElementById('uploadStatus');
@@ -628,19 +865,31 @@
                 if (fileURL) {
                     URL.revokeObjectURL(fileURL);
                 }
-                
                 fileURL = URL.createObjectURL(file);
-                
                 downloadBtn.href = fileURL;
                 downloadBtn.download = file.name;
-                
-                uploadStatus.innerHTML = `> [Success] Loaded file: <strong>${file.name}</strong> into cache. Ready for download.`;
-                
-                // Add a little flash effect to the button to show it updated
+                uploadStatus.innerHTML = `> [Success] Loaded file: <strong>${file.name}</strong>`;
                 downloadBtn.style.boxShadow = "0 0 30px var(--accent-blue)";
                 setTimeout(() => { downloadBtn.style.boxShadow = "none"; }, 1000);
             }
         });
+
+        // --- Instagram Modal Logic ---
+        const instaModal = document.getElementById("instaModal");
+        const openInstaBtn = document.getElementById("openInstaBtn");
+        const closeBtn = document.querySelector(".close-btn");
+
+        openInstaBtn.onclick = function() {
+            instaModal.style.display = "flex";
+        }
+        closeBtn.onclick = function() {
+            instaModal.style.display = "none";
+        }
+        window.onclick = function(event) {
+            if (event.target == instaModal) {
+                instaModal.style.display = "none";
+            }
+        }
     </script>
 </body>
 </html>
