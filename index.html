@@ -8,14 +8,25 @@
         @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600&display=swap');
 
         :root {
-            --bg-base: #09090b;
-            --bg-card: #18181b;
+            --bg-base: #050505;
+            --bg-card: #121214;
             --text-main: #a1a1aa;
             --text-bright: #f4f4f5;
             --accent-green: #10b981;
             --accent-blue: #38bdf8;
             --trace-color: #27272a;
+            --glow-blue: rgba(56, 189, 248, 0.15);
+            --glow-green: rgba(16, 185, 129, 0.15);
         }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-base); }
+        ::-webkit-scrollbar-thumb { background: var(--accent-blue); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent-green); }
+
+        /* Custom Selection */
+        ::selection { background: var(--accent-blue); color: var(--bg-base); }
 
         body {
             font-family: 'Inter', sans-serif;
@@ -24,8 +35,13 @@
             padding: 0;
             background-color: var(--bg-base);
             color: var(--text-main);
-            background-image: radial-gradient(var(--trace-color) 1px, transparent 1px);
-            background-size: 20px 20px;
+            /* Upgraded PCB Grid Background */
+            background-image: 
+                linear-gradient(var(--trace-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--trace-color) 1px, transparent 1px);
+            background-size: 30px 30px;
+            background-position: center center;
+            overflow-x: hidden;
         }
 
         h1, h2, h3 {
@@ -35,16 +51,20 @@
 
         header {
             border-bottom: 1px solid var(--trace-color);
-            padding: 4rem 20px;
+            padding: 5rem 20px;
             text-align: center;
-            background: linear-gradient(180deg, rgba(24,24,27,0.8) 0%, rgba(9,9,11,1) 100%);
+            background: linear-gradient(180deg, rgba(18,18,20,0.95) 0%, rgba(5,5,5,0.95) 100%);
+            backdrop-filter: blur(5px);
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         header h1 {
             margin: 0;
-            font-size: 2.8rem;
+            font-size: clamp(2rem, 5vw, 3.5rem);
             color: var(--text-bright);
             letter-spacing: -1px;
+            animation: slideDown 0.8s ease-out forwards;
         }
         
         header h1::before {
@@ -58,8 +78,11 @@
             animation: blink 1s step-end infinite;
         }
 
-        @keyframes blink {
-            50% { opacity: 0; }
+        @keyframes blink { 50% { opacity: 0; } }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         header p {
@@ -67,37 +90,63 @@
             color: var(--accent-blue);
             margin-top: 15px;
             font-family: 'Fira Code', monospace;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 0.5s forwards;
         }
 
         .container {
-            max-width: 850px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 2rem 20px;
+            padding: 3rem 20px;
         }
 
+        /* Section Entry Animations */
         section {
             background: var(--bg-card);
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border-radius: 4px;
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            border-radius: 8px;
             border: 1px solid var(--trace-color);
-            border-left: 3px solid var(--accent-blue);
+            border-left: 4px solid var(--accent-blue);
             position: relative;
-            transition: transform 0.2s ease, border-color 0.2s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            animation: slideUp 0.8s ease-out forwards;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        /* Staggered animation delays for sections */
+        section:nth-child(1) { animation-delay: 0.2s; }
+        section:nth-child(2) { animation-delay: 0.4s; }
+        section:nth-child(3) { animation-delay: 0.6s; }
+        section:nth-child(4) { animation-delay: 0.8s; }
+        section:nth-child(5) { animation-delay: 1.0s; }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         section:hover {
             border-left-color: var(--accent-green);
-            transform: translateX(5px);
+            transform: translateX(5px) translateY(-2px);
+            box-shadow: 0 10px 30px var(--glow-blue);
+            border-color: rgba(56, 189, 248, 0.3);
         }
 
         h2 {
             color: var(--text-bright);
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             margin-top: 0;
             display: inline-block;
             border-bottom: 2px dashed var(--trace-color);
-            padding-bottom: 5px;
+            padding-bottom: 8px;
+            margin-bottom: 1.5rem;
         }
 
         h2::before {
@@ -105,23 +154,33 @@
             color: var(--accent-green);
         }
 
+        /* Microchip Skills Styling */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
-            margin-top: 1.5rem;
         }
 
         .skill-tag {
-            background: var(--bg-base);
+            background: linear-gradient(145deg, #18181b, #0f0f11);
             padding: 12px 15px;
             border: 1px solid var(--trace-color);
-            border-radius: 3px;
+            border-radius: 4px;
             font-family: 'Fira Code', monospace;
             font-size: 0.85rem;
             color: var(--text-bright);
             display: flex;
             align-items: center;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-tag:hover {
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--glow-blue);
         }
 
         .skill-tag::before {
@@ -129,15 +188,17 @@
             display: inline-block;
             width: 8px;
             height: 8px;
-            background-color: var(--accent-blue);
+            background-color: var(--accent-green);
             border-radius: 50%;
             margin-right: 10px;
+            box-shadow: 0 0 8px var(--accent-green);
         }
 
         .project {
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
             border-bottom: 1px dashed var(--trace-color);
+            transition: all 0.3s ease;
         }
 
         .project:last-child {
@@ -145,20 +206,27 @@
             border-bottom: none;
             padding-bottom: 0;
         }
+        
+        .project:hover h3::before {
+            color: var(--accent-green);
+        }
 
         .project h3 {
             color: var(--text-bright);
-            margin: 0 0 5px 0;
-            font-size: 1.2rem;
+            margin: 0 0 8px 0;
+            font-size: 1.3rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .project h3::before {
             content: "{} ";
             color: var(--accent-blue);
             margin-right: 10px;
+            transition: color 0.3s ease;
         }
         
         .project-title-wrapper {
@@ -170,21 +238,30 @@
             font-family: 'Fira Code', monospace;
             font-size: 0.85rem;
             color: var(--accent-green);
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            background: rgba(16, 185, 129, 0.1);
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
         }
 
         .github-link {
             font-size: 0.8rem;
             color: var(--bg-base);
             background-color: var(--accent-blue);
-            padding: 2px 8px;
-            border-radius: 3px;
+            padding: 4px 12px;
+            border-radius: 4px;
             text-decoration: none;
-            transition: all 0.2s;
+            transition: all 0.3s ease;
+            font-family: 'Fira Code', monospace;
+            text-transform: uppercase;
+            font-weight: 600;
         }
         
         .github-link:hover {
             background-color: var(--accent-green);
+            box-shadow: 0 0 10px var(--accent-green);
+            transform: scale(1.05);
         }
 
         ul {
@@ -192,7 +269,7 @@
         }
 
         ul li {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         ul li::marker {
@@ -203,23 +280,35 @@
         .resume-controls {
             display: flex;
             flex-direction: row;
-            justify-content: flex-end; /* Aligns the buttons to the right corner */
+            justify-content: flex-end;
             flex-wrap: wrap;
             gap: 15px;
-            margin-top: 15px;
-            background: var(--bg-base);
-            padding: 20px;
+            background: #09090b;
+            padding: 25px;
             border: 1px solid var(--trace-color);
-            border-radius: 4px;
+            border-radius: 6px;
+            position: relative;
+        }
+        
+        .resume-controls::before {
+            content: "MEM_BUFFER";
+            position: absolute;
+            top: -10px;
+            left: 15px;
+            background: var(--bg-card);
+            padding: 0 10px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.75rem;
+            color: var(--trace-color);
         }
 
         .btn {
-            padding: 10px 20px;
+            padding: 12px 24px;
             background-color: transparent;
             color: var(--text-bright);
             text-decoration: none;
             border: 1px solid var(--accent-blue);
-            border-radius: 3px;
+            border-radius: 4px;
             font-family: 'Fira Code', monospace;
             font-size: 0.9rem;
             transition: all 0.3s ease;
@@ -228,32 +317,55 @@
             cursor: pointer;
             text-align: center;
             display: inline-block;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--accent-blue);
+            z-index: -1;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .btn:hover::after {
+            transform: translateY(0);
         }
 
         .btn:hover {
-            background-color: var(--accent-blue);
             color: var(--bg-base);
-            box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+            box-shadow: 0 0 20px var(--glow-blue);
+            border-color: var(--accent-blue);
         }
 
         .btn-upload {
             border-color: var(--text-main);
             color: var(--text-main);
         }
+        
+        .btn-upload::after {
+            background-color: var(--text-main);
+        }
 
         .btn-upload:hover {
-            background-color: var(--text-main);
-            color: var(--bg-base);
-            box-shadow: none;
+            box-shadow: 0 0 15px rgba(161, 161, 170, 0.3);
         }
 
         #uploadStatus {
             font-family: 'Fira Code', monospace;
             font-size: 0.85rem;
-            margin: 0;
+            margin: 10px 0 0 0;
             color: var(--accent-green);
             width: 100%;
             text-align: right;
+            min-height: 20px;
         }
 
         .contact-links {
@@ -264,12 +376,12 @@
         }
         
         .contact-links a {
-            padding: 10px 20px;
+            padding: 12px 24px;
             background-color: transparent;
             color: var(--text-bright);
             text-decoration: none;
             border: 1px solid var(--accent-blue);
-            border-radius: 3px;
+            border-radius: 4px;
             font-family: 'Fira Code', monospace;
             font-size: 0.9rem;
             transition: all 0.3s ease;
@@ -280,28 +392,43 @@
         .contact-links a:hover {
             background-color: var(--accent-blue);
             color: var(--bg-base);
-            box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+            box-shadow: 0 0 20px var(--glow-blue);
+            transform: translateY(-2px);
         }
         
         .contact-links a.github:hover {
             border-color: var(--accent-green);
             background-color: var(--accent-green);
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+            box-shadow: 0 0 20px var(--glow-green);
+        }
+        
+        .contact-links a.phone:hover {
+            border-color: #f59e0b;
+            background-color: #f59e0b;
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
         }
 
         /* Footer Styles */
         footer {
             text-align: center;
-            padding: 2rem 20px;
+            padding: 3rem 20px;
             border-top: 1px dashed var(--trace-color);
-            margin-top: 2rem;
+            margin-top: 3rem;
             font-family: 'Fira Code', monospace;
             font-size: 0.85rem;
-            color: var(--text-main);
+            color: #52525b;
+            background: linear-gradient(0deg, rgba(5,5,5,1) 0%, rgba(5,5,5,0) 100%);
         }
         
         footer p {
             margin: 0;
+        }
+
+        /* Responsive tweaks */
+        @media (max-width: 600px) {
+            .resume-controls { justify-content: center; }
+            #uploadStatus { text-align: center; }
+            .contact-links { justify-content: center; }
         }
     </style>
 </head>
@@ -324,9 +451,9 @@
         <section id="skills">
             <h2>technical_skills</h2>
             <div class="skills-grid">
-                <div class="skill-tag">C & Memory Management</div>
-                <div class="skill-tag">STM32 & PIC18 MCUs</div>
-                <div class="skill-tag">UART, I2C, Modbus RTU</div>
+                <div class="skill-tag">C & Embedded C</div>
+                <div class="skill-tag">STM32 LPC21 & PIC18 MCUs</div>
+                <div class="skill-tag">UART, I2C, SPI</div>
                 <div class="skill-tag">Proteus VSM</div>
                 <div class="skill-tag">STM32CubeIDE</div>
                 <div class="skill-tag">Microchip XC8</div>
@@ -339,7 +466,7 @@
             
             <div class="project">
                 <h3>
-                    <span class="project-title-wrapper">Conversion of Mechanical Thermograph into Digital System</span>
+                    <span class="project-title-wrapper">Conversion of Mechanical Thermograph into Digital</span>
                     <a href="https://www.ijteonline.in/assets/uploads/issue_pdf/1760289720.pdf" target="_blank" class="github-link">Paper</a>
                 </h3>
                 <div class="project-meta">IMD, Pune | Apr 2024 | Project Lead</div>
@@ -396,14 +523,12 @@
                 <a href="https://github.com/haibatpureabhi0904" target="_blank" class="github">GitHub</a>
                 <a href="https://www.linkedin.com/in/abhishek-haibatpure-94285223b" target="_blank">LinkedIn</a>
                 <a href="mailto:haibatpureabhishek@gmail.com">Email</a>
-                <!-- Added Contact Number -->
                 <a href="tel:+919423697754" class="phone">📞 +91 9423697754</a>
             </div>
         </section>
 
     </div>
 
-    <!-- Added Footer with Copyright -->
     <footer>
         <p>&copy; 2026 Abhishek Haibatpure. All rights reserved.</p>
     </footer>
@@ -419,20 +544,20 @@
             const file = event.target.files[0];
             
             if (file) {
-                // If a previous file was loaded, revoke its URL to free up browser memory
                 if (fileURL) {
                     URL.revokeObjectURL(fileURL);
                 }
                 
-                // Create a temporary URL in the browser pointing to the uploaded file
                 fileURL = URL.createObjectURL(file);
                 
-                // Update the download button to point to this new file
                 downloadBtn.href = fileURL;
                 downloadBtn.download = file.name;
                 
-                // Show success message
-                uploadStatus.innerHTML = `> [Success] Loaded file into memory: <strong>${file.name}</strong>. Ready for download.`;
+                uploadStatus.innerHTML = `> [Success] Loaded file: <strong>${file.name}</strong> into cache. Ready for download.`;
+                
+                // Add a little flash effect to the button to show it updated
+                downloadBtn.style.boxShadow = "0 0 30px var(--accent-blue)";
+                setTimeout(() => { downloadBtn.style.boxShadow = "none"; }, 1000);
             }
         });
     </script>
