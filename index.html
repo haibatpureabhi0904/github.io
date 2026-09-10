@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abhishek Haibatpure | Firmware & Embedded</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600&display=swap');
+
+        :root {
+            --bg-base: #09090b;
+            --bg-card: #18181b;
+            --text-main: #a1a1aa;
+            --text-bright: #f4f4f5;
+            --accent-green: #10b981;
+            --accent-blue: #38bdf8;
+            --trace-color: #27272a;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            background-image: radial-gradient(var(--trace-color) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Fira Code', monospace;
+            font-weight: 600;
+        }
+
+        header {
+            border-bottom: 1px solid var(--trace-color);
+            padding: 4rem 20px;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(24,24,27,0.8) 0%, rgba(9,9,11,1) 100%);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.8rem;
+            color: var(--text-bright);
+            letter-spacing: -1px;
+        }
+        
+        header h1::before {
+            content: "> ";
+            color: var(--accent-green);
+        }
+
+        header h1::after {
+            content: "_";
+            color: var(--accent-blue);
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: var(--accent-blue);
+            margin-top: 15px;
+            font-family: 'Fira Code', monospace;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 2rem 20px;
+        }
+
+        section {
+            background: var(--bg-card);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 4px;
+            border: 1px solid var(--trace-color);
+            border-left: 3px solid var(--accent-blue);
+            position: relative;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        section:hover {
+            border-left-color: var(--accent-green);
+            transform: translateX(5px);
+        }
+
+        h2 {
+            color: var(--text-bright);
+            font-size: 1.5rem;
+            margin-top: 0;
+            display: inline-block;
+            border-bottom: 2px dashed var(--trace-color);
+            padding-bottom: 5px;
+        }
+
+        h2::before {
+            content: "./";
+            color: var(--accent-green);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 1.5rem;
+        }
+
+        .skill-tag {
+            background: var(--bg-base);
+            padding: 12px 15px;
+            border: 1px solid var(--trace-color);
+            border-radius: 3px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            color: var(--text-bright);
+            display: flex;
+            align-items: center;
+        }
+
+        .skill-tag::before {
+            content: "";
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-blue);
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .project {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px dashed var(--trace-color);
+        }
+
+        .project:last-child {
+            margin-bottom: 0;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .project h3 {
+            color: var(--text-bright);
+            margin: 0 0 5px 0;
+            font-size: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .project h3::before {
+            content: "{} ";
+            color: var(--accent-blue);
+            margin-right: 10px;
+        }
+        
+        .project-title-wrapper {
+            display: flex;
+            align-items: center;
+        }
+
+        .project-meta {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            color: var(--accent-green);
+            margin-bottom: 10px;
+        }
+
+        .github-link {
+            font-size: 0.8rem;
+            color: var(--bg-base);
+            background-color: var(--accent-blue);
+            padding: 2px 8px;
+            border-radius: 3px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        
+        .github-link:hover {
+            background-color: var(--accent-green);
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        ul li {
+            margin-bottom: 8px;
+        }
+
+        ul li::marker {
+            color: var(--accent-green);
+        }
+
+        /* Resume Section Styles */
+        .resume-controls {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end; /* Aligns the buttons to the right corner */
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+            background: var(--bg-base);
+            padding: 20px;
+            border: 1px solid var(--trace-color);
+            border-radius: 4px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            background-color: transparent;
+            color: var(--text-bright);
+            text-decoration: none;
+            border: 1px solid var(--accent-blue);
+            border-radius: 3px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-blue);
+            color: var(--bg-base);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+        }
+
+        .btn-upload {
+            border-color: var(--text-main);
+            color: var(--text-main);
+        }
+
+        .btn-upload:hover {
+            background-color: var(--text-main);
+            color: var(--bg-base);
+            box-shadow: none;
+        }
+
+        #uploadStatus {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            margin: 0;
+            color: var(--accent-green);
+            width: 100%;
+            text-align: right;
+        }
+
+        .contact-links {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+        
+        .contact-links a {
+            padding: 10px 20px;
+            background-color: transparent;
+            color: var(--text-bright);
+            text-decoration: none;
+            border: 1px solid var(--accent-blue);
+            border-radius: 3px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .contact-links a:hover {
+            background-color: var(--accent-blue);
+            color: var(--bg-base);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+        }
+        
+        .contact-links a.github:hover {
+            border-color: var(--accent-green);
+            background-color: var(--accent-green);
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 2rem 20px;
+            border-top: 1px dashed var(--trace-color);
+            margin-top: 2rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            color: var(--text-main);
+        }
+        
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Abhishek Haibatpure</h1>
+        <p>Embedded Systems & C Programming | Bachelor of Engineering (SPPU)</p>
+    </header>
+
+    <div class="container">
+        
+        <!-- About Section -->
+        <section id="about">
+            <h2>about_me.txt</h2>
+            <p>I am an engineer focused on embedded systems firmware design, bare-metal programming, and microcontroller architectures. I enjoy exploring everything from hardware-level C programming to cloud computing concepts.</p>
+        </section>
+
+        <!-- Technical Skills Section -->
+        <section id="skills">
+            <h2>technical_skills</h2>
+            <div class="skills-grid">
+                <div class="skill-tag">C & Memory Management</div>
+                <div class="skill-tag">STM32 & PIC18 MCUs</div>
+                <div class="skill-tag">UART, I2C, Modbus RTU</div>
+                <div class="skill-tag">Proteus VSM</div>
+                <div class="skill-tag">STM32CubeIDE</div>
+                <div class="skill-tag">Microchip XC8</div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects">
+            <h2>featured_projects/</h2>
+            
+            <div class="project">
+                <h3>
+                    <span class="project-title-wrapper">Conversion of Mechanical Thermograph into Digital System</span>
+                    <a href="https://www.ijteonline.in/assets/uploads/issue_pdf/1760289720.pdf" target="_blank" class="github-link">Paper</a>
+                </h3>
+                <div class="project-meta">IMD, Pune | Apr 2024 | Project Lead</div>
+                <p><strong>Published Research:</strong> Indian Journal of Technical Education (UGC-CARE Indexed)</p>
+                <p>Modernized legacy recording systems by developing an automated data-logging solution using VL53L0X ToF sensor and LCD, eliminating manual tracking and achieving real-time precision.</p>
+            </div>
+
+            <div class="project">
+                <h3>
+                    <span class="project-title-wrapper">ATM Interface Simulation</span>
+                    <a href="https://github.com/haibatpureabhi0904" target="_blank" class="github-link">GitHub</a>
+                </h3>
+                <div class="project-meta">Aug 2026</div>
+                <p>Designed and simulated a bare-metal STM32 ATM controller in C, implementing a Finite State Machine with multi-peripheral interfacing (ADC joystick, 4x4 keypad, 8-bit LCD, multiplexed 7-segment display) and validating functionality in Proteus VSM.</p>
+            </div>
+
+            <div class="project">
+                <h3>
+                    <span class="project-title-wrapper">GPS Wildlife Tracking</span>
+                    <a href="https://github.com/haibatpureabhi0904" target="_blank" class="github-link">GitHub</a>
+                </h3>
+                <div class="project-meta">Sep 2026</div>
+                <p>Engineered a bare-metal firmware featuring dual-UART GPS/GSM processing, an FPU-free integer geofencing algorithm for 40 sq km boundary tracking, and automated multi-modal alert systems.</p>
+            </div>
+
+            <div class="project">
+                <h3>
+                    <span class="project-title-wrapper">Smart Street Light Controller</span>
+                    <a href="https://github.com/haibatpureabhi0904" target="_blank" class="github-link">GitHub</a>
+                </h3>
+                <div class="project-meta">Sep 2026</div>
+                <p>Designed an automated, LDR-driven lighting system with real-time UART fault monitoring using a PIC18F4520 microcontroller and Embedded C.</p>
+            </div>
+        </section>
+
+        <!-- Resume File Manager Section -->
+        <section id="resume">
+            <h2>updated_resume</h2>
+            <div class="resume-controls">
+                <label for="resumeUpload" class="btn btn-upload">Upload New Resume</label>
+                <input type="file" id="resumeUpload" style="display: none;" accept=".pdf,.doc,.docx">
+                
+                <a href="Abhi_resume.docx" id="downloadBtn" class="btn" download="Abhishek_Haibatpure_Resume.docx">Download Resume</a>
+                
+                <p id="uploadStatus"></p>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2>establish_connection()</h2>
+            <p>Feel free to reach out for collaborations, hardware projects, or networking.</p>
+            <div class="contact-links">
+                <a href="https://github.com/haibatpureabhi0904" target="_blank" class="github">GitHub</a>
+                <a href="https://www.linkedin.com/in/abhishek-haibatpure-94285223b" target="_blank">LinkedIn</a>
+                <a href="mailto:haibatpureabhishek@gmail.com">Email</a>
+                <!-- Added Contact Number -->
+                <a href="tel:+919423697754" class="phone">📞 +91 9423697754</a>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Added Footer with Copyright -->
+    <footer>
+        <p>&copy; 2026 Abhishek Haibatpure. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript to handle Resume Upload and Download dynamically -->
+    <script>
+        const resumeUpload = document.getElementById('resumeUpload');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const uploadStatus = document.getElementById('uploadStatus');
+        let fileURL = null;
+
+        resumeUpload.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            
+            if (file) {
+                // If a previous file was loaded, revoke its URL to free up browser memory
+                if (fileURL) {
+                    URL.revokeObjectURL(fileURL);
+                }
+                
+                // Create a temporary URL in the browser pointing to the uploaded file
+                fileURL = URL.createObjectURL(file);
+                
+                // Update the download button to point to this new file
+                downloadBtn.href = fileURL;
+                downloadBtn.download = file.name;
+                
+                // Show success message
+                uploadStatus.innerHTML = `> [Success] Loaded file into memory: <strong>${file.name}</strong>. Ready for download.`;
+            }
+        });
+    </script>
+</body>
+</html>
