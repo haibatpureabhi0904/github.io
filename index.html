@@ -60,7 +60,7 @@
         /* Custom Selection */
         ::selection { background: var(--accent-blue); color: #fff; }
 
-        body {
+body {
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
             margin: 0;
@@ -69,14 +69,13 @@
             background-color: var(--bg-base);
             transition: background-color 0.3s ease, color 0.3s ease;
             
+            /* Optimized background: single image with simple overlay */
             background-image: 
                 var(--body-overlay),
-                url('background1.jpg'),
-                url('background.jpg'); 
-            background-size: cover, cover, cover;
-            background-position: center center, center center, center center;
-            background-attachment: fixed;
-            background-blend-mode: normal, screen, normal; 
+                url('background1.jpg'); 
+            background-size: cover;
+            background-position: center center;
+            background-attachment: scroll; /* Changed from fixed to scroll for smooth performance */
             
             overflow-x: hidden;
         }
