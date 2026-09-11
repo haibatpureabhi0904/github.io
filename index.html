@@ -378,7 +378,8 @@
         /* Project Video Styles */
         .project-video {
             width: 100%;
-            max-width: 650px;
+            max-width: 100%; /* Expanded to fit the container width */
+            height: 400px;   /* Added a larger fixed/responsive height */
             margin-top: 15px;
             border-radius: 6px;
             border: 1px dashed var(--trace-color);
@@ -388,6 +389,11 @@
             display: block;
         }
 
+        @media (max-width: 768px) {
+            .project-video {
+                height: 250px; /* Adjust height automatically for smaller mobile screens */
+            }
+        }
         .project:hover .project-video {
             border-color: var(--accent-blue);
             box-shadow: 0 5px 15px var(--glow-blue);
