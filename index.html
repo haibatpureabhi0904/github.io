@@ -1,895 +1,888 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abhishek Haibatpure | Firmware & Embedded</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600&display=swap');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abhishek Haibatpure | Firmware & Embedded</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;600&display=swap');
 
-        :root {
-            /* Default Dark Mode Variables */
-            --bg-base: #050505;
-            --bg-card: #121214;
-            --text-main: #a1a1aa;
-            --text-bright: #f4f4f5;
-            --accent-green: #10b981;
-            --accent-blue: #38bdf8;
-            --trace-color: #27272a;
-            --glow-blue: rgba(56, 189, 248, 0.15);
-            --glow-green: rgba(16, 185, 129, 0.15);
-            
-            /* Background gradient overlays for dark mode */
-            --body-overlay: linear-gradient(rgba(0, 0, 0, 0.82), rgba(5, 5, 5, 0.90));
-            --header-overlay: linear-gradient(180deg, rgba(18,18,20,0.75) 0%, rgba(5,5,5,0.85) 100%);
-            --section-overlay: linear-gradient(rgba(0, 0, 0, 0.80), rgba(10, 10, 12, 0.85));
-            --tag-bg: linear-gradient(145deg, rgba(24, 24, 27, 0.85), rgba(15, 15, 17, 0.85));
-            --resume-bg: rgba(0, 0, 0, 0.6);
-            --link-bg: rgba(0,0,0,0.4);
-            --modal-bg: rgba(0, 0, 0, 0.85);
-        }
+        :root {
+            /* Default Dark Mode Variables */
+            --bg-base: #050505;
+            --bg-card: #121214;
+            --text-main: #a1a1aa;
+            --text-bright: #f4f4f5;
+            --accent-green: #10b981;
+            --accent-blue: #38bdf8;
+            --trace-color: #27272a;
+            --glow-blue: rgba(56, 189, 248, 0.15);
+            --glow-green: rgba(16, 185, 129, 0.15);
+            
+            /* Background gradient overlays for dark mode */
+            --body-overlay: linear-gradient(rgba(0, 0, 0, 0.85), rgba(5, 5, 5, 0.92));
+            --header-overlay: linear-gradient(180deg, rgba(18,18,20,0.85) 0%, rgba(5,5,5,0.92) 100%);
+            --section-overlay: linear-gradient(rgba(0, 0, 0, 0.85), rgba(10, 10, 12, 0.90));
+            --tag-bg: linear-gradient(145deg, rgba(24, 24, 27, 0.9), rgba(15, 15, 17, 0.9));
+            --resume-bg: rgba(18, 18, 20, 0.85);
+            --link-bg: rgba(24, 24, 27, 0.6);
+            --modal-bg: #121214;
+        }
 
-        /* Light Mode Variables */
-        body.light-mode {
-            --bg-base: #f8fafc;
-            --bg-card: #ffffff;
-            --text-main: #3f3f46;
-            --text-bright: #18181b;
-            --accent-green: #059669; /* Darker green for contrast */
-            --accent-blue: #0284c7;  /* Darker blue for contrast */
-            --trace-color: #e4e4e7;
-            --glow-blue: rgba(2, 132, 199, 0.15);
-            --glow-green: rgba(5, 150, 105, 0.15);
-            
-            /* Background gradient overlays for light mode */
-            --body-overlay: linear-gradient(rgba(255, 255, 255, 0.90), rgba(245, 245, 250, 0.95));
-            --header-overlay: linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(240,240,245,0.95) 100%);
-            --section-overlay: linear-gradient(rgba(255, 255, 255, 0.93), rgba(250, 250, 255, 0.95));
-            --tag-bg: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(240, 240, 245, 0.9));
-            --resume-bg: rgba(255, 255, 255, 0.8);
-            --link-bg: rgba(255,255,255,0.7);
-            --modal-bg: rgba(255, 255, 255, 0.90);
-        }
+        /* Light Mode Variables */
+        body.light-mode {
+            --bg-base: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #3f3f46;
+            --text-bright: #18181b;
+            --accent-green: #059669; /* Darker green for contrast */
+            --accent-blue: #0284c7;  /* Darker blue for contrast */
+            --trace-color: #e4e4e7;
+            --glow-blue: rgba(2, 132, 199, 0.15);
+            --glow-green: rgba(5, 150, 105, 0.15);
+            
+            /* Background gradient overlays for light mode */
+            --body-overlay: linear-gradient(rgba(255, 255, 255, 0.92), rgba(245, 245, 250, 0.96));
+            --header-overlay: linear-gradient(180deg, rgba(255,255,255,0.90) 0%, rgba(240,240,245,0.96) 100%);
+            --section-overlay: linear-gradient(rgba(255, 255, 255, 0.95), rgba(250, 250, 255, 0.97));
+            --tag-bg: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(240, 240, 245, 0.95));
+            --resume-bg: rgba(255, 255, 255, 0.9);
+            --link-bg: rgba(240, 240, 245, 0.8);
+            --modal-bg: #ffffff;
+        }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-base); }
-        ::-webkit-scrollbar-thumb { background: var(--accent-blue); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--accent-green); }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-base); }
+        ::-webkit-scrollbar-thumb { background: var(--accent-blue); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent-green); }
 
-        /* Custom Selection */
-        ::selection { background: var(--accent-blue); color: #fff; }
+        /* Custom Selection */
+        ::selection { background: var(--accent-blue); color: #fff; }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            color: var(--text-main);
-            background-color: var(--bg-base);
-            transition: background-color 0.3s ease, color 0.3s ease;
-            
-            background-image: 
-                var(--body-overlay),
-                url('background1.jpg'),
-                url('background.jpg'); 
-            background-size: cover, cover, cover;
-            background-position: center center, center center, center center;
-            background-attachment: fixed;
-            background-blend-mode: normal, screen, normal; 
-            
-            overflow-x: hidden;
-        }
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: var(--text-main);
+            background-color: var(--bg-base);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            
+            /* Optimized background handling for silky smooth scrolling */
+            background-image: 
+                var(--body-overlay),
+                url('background1.jpg'); 
+            background-size: cover;
+            background-position: center center;
+            background-attachment: scroll; 
+            
+            overflow-x: hidden;
+        }
 
-        /* Theme Toggle Switch */
-        .theme-switch-wrapper {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            display: flex;
-            align-items: center;
-            z-index: 100;
-        }
-        
-        .theme-switch {
-            display: inline-block;
-            height: 30px;
-            position: relative;
-            width: 56px;
-        }
-        
-        .theme-switch input {
-            display: none;
-        }
-        
-        .slider {
-            background-color: #333;
-            bottom: 0;
-            cursor: pointer;
-            left: 0;
-            position: absolute;
-            right: 0;
-            top: 0;
-            transition: .4s;
-            border-radius: 34px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 5px;
-            border: 1px solid var(--trace-color);
-        }
-        
-        .slider:before {
-            background-color: #fff;
-            bottom: 3px;
-            content: "";
-            height: 22px;
-            left: 4px;
-            position: absolute;
-            transition: .4s;
-            width: 22px;
-            border-radius: 50%;
-            z-index: 2;
-        }
-        
-        input:checked + .slider {
-            background-color: #e2e8f0;
-        }
-        
-        input:checked + .slider:before {
-            transform: translateX(24px);
-            background-color: var(--accent-blue);
-        }
-        
-        .slider .icon {
-            font-size: 14px;
-            z-index: 1;
-        }
+        /* Theme Toggle Switch */
+        .theme-switch-wrapper {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            z-index: 100;
+        }
+        
+        .theme-switch {
+            display: inline-block;
+            height: 30px;
+            position: relative;
+            width: 56px;
+        }
+        
+        .theme-switch input {
+            display: none;
+        }
+        
+        .slider {
+            background-color: #333;
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: .4s;
+            border-radius: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5px;
+            border: 1px solid var(--trace-color);
+        }
+        
+        .slider:before {
+            background-color: #fff;
+            bottom: 3px;
+            content: "";
+            height: 22px;
+            left: 4px;
+            position: absolute;
+            transition: .4s;
+            width: 22px;
+            border-radius: 50%;
+            z-index: 2;
+        }
+        
+        input:checked + .slider {
+            background-color: #e2e8f0;
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(24px);
+            background-color: var(--accent-blue);
+        }
+        
+        .slider .icon {
+            font-size: 14px;
+            z-index: 1;
+        }
 
-        h1, h2, h3 {
-            font-family: 'Fira Code', monospace;
-            font-weight: 600;
-            color: var(--text-bright);
-        }
+        h1, h2, h3 {
+            font-family: 'Fira Code', monospace;
+            font-weight: 600;
+            color: var(--text-bright);
+        }
 
-        header {
-            border-bottom: 1px solid var(--trace-color);
-            padding: 6rem 20px 5rem;
-            text-align: center;
-            /* Updated to use background2.jpg */
-            background-image: 
-                var(--header-overlay),
-                url('background2.jpg');
-            background-size: cover;
-            background-position: center;
-            backdrop-filter: blur(8px);
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            transition: all 0.3s ease;
-        }
+        header {
+            border-bottom: 1px solid var(--trace-color);
+            padding: 6rem 20px 5rem;
+            text-align: center;
+            background-image: 
+                var(--header-overlay),
+                url('background2.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: scroll;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
 
-        header h1 {
-            margin: 0;
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            letter-spacing: -1px;
-            animation: slideDown 0.8s ease-out forwards;
-        }
-        
-        header h1::before {
-            content: "> ";
-            color: var(--accent-green);
-        }
+        header h1 {
+            margin: 0;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            letter-spacing: -1px;
+            animation: slideDown 0.8s ease-out forwards;
+        }
+        
+        header h1::before {
+            content: "> ";
+            color: var(--accent-green);
+        }
 
-        header h1::after {
-            content: "_";
-            color: var(--accent-blue);
-            animation: blink 1s step-end infinite;
-        }
+        header h1::after {
+            content: "_";
+            color: var(--accent-blue);
+            animation: blink 1s step-end infinite;
+        }
 
-        @keyframes blink { 50% { opacity: 0; } }
-        
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes blink { 50% { opacity: 0; } }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-        header p {
-            font-size: 1.1rem;
-            color: var(--accent-blue);
-            margin-top: 15px;
-            font-family: 'Fira Code', monospace;
-            opacity: 0;
-            animation: fadeIn 1s ease-out 0.5s forwards;
-            font-weight: 600;
-        }
+        header p {
+            font-size: 1.1rem;
+            color: var(--accent-blue);
+            margin-top: 15px;
+            font-family: 'Fira Code', monospace;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 0.5s forwards;
+            font-weight: 600;
+        }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 3rem 20px;
-        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 20px;
+        }
 
-        /* Section Entry Animations */
-        section {
-            /* Lowered opacity for text sections */
-            background-image: 
-                var(--section-overlay),
-                url('background1.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: scroll; 
-            
-            backdrop-filter: blur(4px);
-            padding: 2.5rem;
-            margin-bottom: 2.5rem;
-            border-radius: 8px;
-            border: 1px solid var(--trace-color);
-            border-left: 4px solid var(--accent-blue);
-            position: relative;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            opacity: 0;
-            animation: slideUp 0.8s ease-out forwards;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
-        }
+        /* Section Entry Animations */
+        section {
+            background-image: 
+                var(--section-overlay),
+                url('background1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: scroll; 
+            
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--trace-color);
+            border-left: 4px solid var(--accent-blue);
+            position: relative;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            opacity: 0;
+            animation: slideUp 0.6s ease-out forwards;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
 
-        section:nth-child(1) { animation-delay: 0.2s; }
-        section:nth-child(2) { animation-delay: 0.4s; }
-        section:nth-child(3) { animation-delay: 0.6s; }
-        section:nth-child(4) { animation-delay: 0.8s; }
-        section:nth-child(5) { animation-delay: 1.0s; }
+        section:nth-child(1) { animation-delay: 0.1s; }
+        section:nth-child(2) { animation-delay: 0.2s; }
+        section:nth-child(3) { animation-delay: 0.3s; }
+        section:nth-child(4) { animation-delay: 0.4s; }
+        section:nth-child(5) { animation-delay: 0.5s; }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
 
-        section:hover {
-            border-left-color: var(--accent-green);
-            transform: translateX(5px) translateY(-2px);
-            box-shadow: 0 10px 30px var(--glow-blue);
-            border-color: rgba(56, 189, 248, 0.4);
-        }
+        section:hover {
+            border-left-color: var(--accent-green);
+            transform: translateX(3px) translateY(-2px);
+            box-shadow: 0 10px 30px var(--glow-blue);
+            border-color: rgba(56, 189, 248, 0.4);
+        }
 
-        h2 {
-            font-size: 1.6rem;
-            margin-top: 0;
-            display: inline-block;
-            border-bottom: 2px dashed var(--trace-color);
-            padding-bottom: 8px;
-            margin-bottom: 1.5rem;
-        }
+        h2 {
+            font-size: 1.6rem;
+            margin-top: 0;
+            display: inline-block;
+            border-bottom: 2px dashed var(--trace-color);
+            padding-bottom: 8px;
+            margin-bottom: 1.5rem;
+        }
 
-        h2::before {
-            content: "./";
-            color: var(--accent-green);
-        }
+        h2::before {
+            content: "./";
+            color: var(--accent-green);
+        }
 
-        /* Microchip Skills Styling */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-        }
+        /* Microchip Skills Styling */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
 
-        .skill-tag {
-            background: var(--tag-bg);
-            padding: 12px 15px;
-            border: 1px solid var(--trace-color);
-            border-radius: 4px;
-            font-family: 'Fira Code', monospace;
-            font-size: 0.85rem;
-            color: var(--text-bright);
-            display: flex;
-            align-items: center;
-            transition: all 0.2s ease;
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(2px);
-        }
+        .skill-tag {
+            background: var(--tag-bg);
+            padding: 12px 15px;
+            border: 1px solid var(--trace-color);
+            border-radius: 4px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            color: var(--text-bright);
+            display: flex;
+            align-items: center;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
 
-        .skill-tag:hover {
-            border-color: var(--accent-blue);
-            color: var(--accent-blue);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px var(--glow-blue);
-        }
+        .skill-tag:hover {
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--glow-blue);
+        }
 
-        .skill-tag::before {
-            content: "";
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            background-color: var(--accent-green);
-            border-radius: 50%;
-            margin-right: 10px;
-            box-shadow: 0 0 8px var(--accent-green);
-        }
+        .skill-tag::before {
+            content: "";
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-green);
+            border-radius: 50%;
+            margin-right: 10px;
+            box-shadow: 0 0 8px var(--accent-green);
+        }
 
-        /* Project Styles */
-        .project {
-            margin-bottom: 3.5rem;
-            padding-bottom: 2rem;
-            border-bottom: 1px dashed var(--trace-color);
-            transition: all 0.3s ease;
-        }
+        /* Project Styles */
+        .project {
+            margin-bottom: 3.5rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px dashed var(--trace-color);
+            transition: all 0.3s ease;
+        }
 
-        .project:last-child {
-            margin-bottom: 0;
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-        
-        .project:hover h3::before {
-            color: var(--accent-green);
-        }
+        .project:last-child {
+            margin-bottom: 0;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        
+        .project:hover h3::before {
+            color: var(--accent-green);
+        }
 
-        .project h3 {
-            margin: 0 0 8px 0;
-            font-size: 1.3rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
+        .project h3 {
+            margin: 0 0 8px 0;
+            font-size: 1.3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
 
-        .project h3::before {
-            content: "{} ";
-            color: var(--accent-blue);
-            margin-right: 10px;
-            transition: color 0.3s ease;
-        }
-        
-        .project-title-wrapper {
-            display: flex;
-            align-items: center;
-        }
+        .project h3::before {
+            content: "{} ";
+            color: var(--accent-blue);
+            margin-right: 10px;
+            transition: color 0.3s ease;
+        }
+        
+        .project-title-wrapper {
+            display: flex;
+            align-items: center;
+        }
 
-        .project-meta {
-            font-family: 'Fira Code', monospace;
-            font-size: 0.85rem;
-            color: var(--accent-green);
-            margin-bottom: 12px;
-            background: rgba(16, 185, 129, 0.15);
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 4px;
-        }
+        .project-meta {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            color: var(--accent-green);
+            margin-bottom: 12px;
+            background: rgba(16, 185, 129, 0.15);
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
 
-        .github-link {
-            font-size: 0.8rem;
-            color: #fff;
-            background-color: var(--accent-blue);
-            padding: 4px 12px;
-            border-radius: 4px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-family: 'Fira Code', monospace;
-            text-transform: uppercase;
-            font-weight: 600;
-        }
-        
-        .github-link:hover {
-            background-color: var(--accent-green);
-            box-shadow: 0 0 10px var(--accent-green);
-            transform: scale(1.05);
-        }
+        .github-link {
+            font-size: 0.8rem;
+            color: #fff;
+            background-color: var(--accent-blue);
+            padding: 4px 12px;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-family: 'Fira Code', monospace;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        
+        .github-link:hover {
+            background-color: var(--accent-green);
+            box-shadow: 0 0 10px var(--accent-green);
+            transform: scale(1.05);
+        }
 
-        /* Project Video Styles */
-        .project-video {
-            width: 100%;
-            max-width: 650px;
-            margin-top: 15px;
-            border-radius: 6px;
-            border: 1px dashed var(--trace-color);
-            background: #000;
-            outline: none;
-            transition: all 0.3s ease;
-            display: block;
-        }
+        /* Project Video Styles */
+        .project-video {
+            width: 100%;
+            max-width: 650px;
+            margin-top: 15px;
+            border-radius: 6px;
+            border: 1px dashed var(--trace-color);
+            background: #000;
+            outline: none;
+            transition: all 0.3s ease;
+            display: block;
+        }
 
-        .project:hover .project-video {
-            border-color: var(--accent-blue);
-            box-shadow: 0 5px 15px var(--glow-blue);
-        }
+        .project:hover .project-video {
+            border-color: var(--accent-blue);
+            box-shadow: 0 5px 15px var(--glow-blue);
+        }
 
-        ul {
-            padding-left: 20px;
-        }
+        ul {
+            padding-left: 20px;
+        }
 
-        ul li {
-            margin-bottom: 10px;
-        }
+        ul li {
+            margin-bottom: 10px;
+        }
 
-        ul li::marker {
-            color: var(--accent-green);
-        }
+        ul li::marker {
+            color: var(--accent-green);
+        }
 
-        /* Resume Section Styles */
-        .resume-controls {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between; 
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            background: var(--resume-bg);
-            padding: 25px;
-            border: 1px solid var(--trace-color);
-            border-radius: 6px;
-            position: relative;
-            backdrop-filter: blur(2px);
-            transition: background 0.3s ease;
-        }
-        
-        .resume-controls::before {
-            content: "MEM_BUFFER";
-            position: absolute;
-            top: -10px;
-            left: 15px;
-            background: var(--bg-card);
-            padding: 0 10px;
-            font-family: 'Fira Code', monospace;
-            font-size: 0.75rem;
-            color: var(--text-main);
-            border-radius: 2px;
-            border: 1px solid var(--trace-color);
-        }
+        /* Resume Section Styles */
+        .resume-controls {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between; 
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            background: var(--resume-bg);
+            padding: 25px;
+            border: 1px solid var(--trace-color);
+            border-radius: 6px;
+            position: relative;
+            transition: background 0.3s ease;
+        }
+        
+        .resume-controls::before {
+            content: "MEM_BUFFER";
+            position: absolute;
+            top: -10px;
+            left: 15px;
+            background: var(--bg-card);
+            padding: 0 10px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.75rem;
+            color: var(--text-main);
+            border-radius: 2px;
+            border: 1px solid var(--trace-color);
+        }
 
-        .btn {
-            padding: 12px 24px;
-            background-color: transparent;
-            color: var(--text-bright);
-            text-decoration: none;
-            border: 1px solid var(--accent-blue);
-            border-radius: 4px;
-            font-family: 'Fira Code', monospace;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            text-align: center;
-            display: inline-block;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-        
-        .btn::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--accent-blue);
-            z-index: -1;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-        }
+        .btn {
+            padding: 12px 24px;
+            background-color: transparent;
+            color: var(--text-bright);
+            text-decoration: none;
+            border: 1px solid var(--accent-blue);
+            border-radius: 4px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            text-align: center;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--accent-blue);
+            z-index: -1;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
 
-        .btn:hover::after {
-            transform: translateY(0);
-        }
+        .btn:hover::after {
+            transform: translateY(0);
+        }
 
-        .btn:hover {
-            color: #fff;
-            box-shadow: 0 0 20px var(--glow-blue);
-            border-color: var(--accent-blue);
-        }
+        .btn:hover {
+            color: #fff;
+            box-shadow: 0 0 20px var(--glow-blue);
+            border-color: var(--accent-blue);
+        }
 
-        .upload-section {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
+        .upload-section {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
 
-        .btn-upload {
-            border-color: var(--trace-color);
-            color: var(--text-main);
-            padding: 5px 10px;         
-            font-size: 0.65rem;        
-            border-width: 1px;
-            text-transform: none;
-            letter-spacing: 0.5px;
-            background-color: var(--link-bg);
-        }
-        
-        .btn-upload::after {
-            background-color: var(--text-bright);
-        }
+        .btn-upload {
+            border-color: var(--trace-color);
+            color: var(--text-main);
+            padding: 5px 10px;         
+            font-size: 0.65rem;        
+            border-width: 1px;
+            text-transform: none;
+            letter-spacing: 0.5px;
+            background-color: var(--link-bg);
+        }
+        
+        .btn-upload::after {
+            background-color: var(--text-bright);
+        }
 
-        .btn-upload:hover {
-            color: var(--bg-base);
-            border-color: var(--text-bright);
-            box-shadow: 0 0 10px rgba(161, 161, 170, 0.3);
-        }
+        .btn-upload:hover {
+            color: var(--bg-base);
+            border-color: var(--text-bright);
+            box-shadow: 0 0 10px rgba(161, 161, 170, 0.3);
+        }
 
-        #uploadStatus {
-            font-family: 'Fira Code', monospace;
-            font-size: 0.75rem;
-            margin: 5px 0 0 0;
-            color: var(--accent-green);
-            text-align: left;
-            min-height: 15px;
-            font-weight: 600;
-        }
+        #uploadStatus {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.75rem;
+            margin: 5px 0 0 0;
+            color: var(--accent-green);
+            text-align: left;
+            min-height: 15px;
+            font-weight: 600;
+        }
 
-        #downloadBtn {
-            padding: 16px 32px;
-            font-size: 1.05rem;
-            font-weight: 600;
-            background-color: var(--link-bg);
-        }
+        #downloadBtn {
+            padding: 16px 32px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            background-color: var(--link-bg);
+        }
 
-        /* --- Contact Layout Styles --- */
-        .contact-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 20px;
-            flex-wrap: wrap; 
-        }
-        
-        .contact-text-links {
-            flex: 1;
-            min-width: 250px;
-        }
+        /* --- Contact Layout Styles --- */
+        .contact-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap; 
+        }
+        
+        .contact-text-links {
+            flex: 1;
+            min-width: 250px;
+        }
 
-        .contact-links {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-top: 1.5rem;
-        }
-        
-        .contact-links a, .contact-links button {
-            padding: 12px 24px;
-            background-color: var(--link-bg);
-            color: var(--text-bright);
-            text-decoration: none;
-            border: 1px solid var(--accent-blue);
-            border-radius: 4px;
-            font-family: 'Fira Code', monospace;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-        }
+        .contact-links {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+        
+        .contact-links a, .contact-links button {
+            padding: 12px 24px;
+            background-color: var(--link-bg);
+            color: var(--text-bright);
+            text-decoration: none;
+            border: 1px solid var(--accent-blue);
+            border-radius: 4px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
 
-        .contact-links a:hover, .contact-links button:hover {
-            background-color: var(--accent-blue);
-            color: #fff;
-            box-shadow: 0 0 20px var(--glow-blue);
-            transform: translateY(-2px);
-        }
-        
-        .contact-links a.github:hover {
-            border-color: var(--accent-green);
-            background-color: var(--accent-green);
-            box-shadow: 0 0 20px var(--glow-green);
-        }
+        .contact-links a:hover, .contact-links button:hover {
+            background-color: var(--accent-blue);
+            color: #fff;
+            box-shadow: 0 0 20px var(--glow-blue);
+            transform: translateY(-2px);
+        }
+        
+        .contact-links a.github:hover {
+            border-color: var(--accent-green);
+            background-color: var(--accent-green);
+            box-shadow: 0 0 20px var(--glow-green);
+        }
 
-        .contact-links button.instagram:hover {
-            border-color: #d946ef; 
-            background-color: #d946ef;
-            box-shadow: 0 0 20px rgba(217, 70, 239, 0.4);
-        }
+        .contact-links button.instagram:hover {
+            border-color: #d946ef; 
+            background-color: #d946ef;
+            box-shadow: 0 0 20px rgba(217, 70, 239, 0.4);
+        }
 
-        /* --- Modal Styles --- */
-        .modal {
-            display: none; 
-            position: fixed; 
-            z-index: 1000; 
-            left: 0; 
-            top: 0; 
-            width: 100%; 
-            height: 100%; 
-            background-color: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(8px);
-            align-items: center;
-            justify-content: center;
-        }
+        /* --- Modal Styles --- */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
+            left: 0; 
+            top: 0; 
+            width: 100%; 
+            height: 100%; 
+            background-color: rgba(0, 0, 0, 0.8);
+            align-items: center;
+            justify-content: center;
+        }
 
-        .modal-content {
-            background-color: var(--modal-bg);
-            padding: 2rem;
-            border: 1px solid #d946ef;
-            border-radius: 8px;
-            max-width: 320px;
-            width: 90%;
-            text-align: center;
-            position: relative;
-            box-shadow: 0 10px 40px rgba(217, 70, 239, 0.2);
-            animation: slideDownModal 0.3s ease-out;
-            transition: background-color 0.3s ease;
-        }
+        .modal-content {
+            background-color: var(--modal-bg);
+            padding: 2rem;
+            border: 1px solid #d946ef;
+            border-radius: 8px;
+            max-width: 320px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(217, 70, 239, 0.2);
+            animation: slideDownModal 0.3s ease-out;
+            transition: background-color 0.3s ease;
+        }
 
-        @keyframes slideDownModal {
-            from { opacity: 0; transform: translateY(-50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes slideDownModal {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-        .close-btn {
-            color: var(--text-main);
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
+        .close-btn {
+            color: var(--text-main);
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
 
-        .close-btn:hover {
-            color: #d946ef;
-        }
+        .close-btn:hover {
+            color: #d946ef;
+        }
 
-        .modal-qr-img {
-            max-width: 100%;
-            border-radius: 8px;
-            border: 2px dashed #d946ef;
-            margin-bottom: 20px;
-        }
+        .modal-qr-img {
+            max-width: 100%;
+            border-radius: 8px;
+            border: 2px dashed #d946ef;
+            margin-bottom: 20px;
+        }
 
-        /* Footer Styles */
-        footer {
-            text-align: center;
-            padding: 3rem 20px;
-            border-top: 1px dashed var(--trace-color);
-            margin-top: 3rem;
-            font-family: 'Fira Code', monospace;
-            font-size: 0.85rem;
-            color: #52525b;
-        }
-        
-        footer p {
-            margin: 0;
-        }
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 3rem 20px;
+            border-top: 1px dashed var(--trace-color);
+            margin-top: 3rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            color: #52525b;
+        }
+        
+        footer p {
+            margin: 0;
+        }
 
-        /* Responsive tweaks */
-        @media (max-width: 600px) {
-            .resume-controls { flex-direction: column; align-items: stretch; gap: 20px; }
-            .upload-section { align-items: center; width: 100%; }
-            #uploadStatus { text-align: center; }
-            .contact-content { justify-content: center; text-align: center; }
-            .contact-links { justify-content: center; }
-            .theme-switch-wrapper { top: 10px; right: 10px; }
-        }
-    </style>
+        /* Responsive tweaks */
+        @media (max-width: 600px) {
+            .resume-controls { flex-direction: column; align-items: stretch; gap: 20px; }
+            .upload-section { align-items: center; width: 100%; }
+            #uploadStatus { text-align: center; }
+            .contact-content { justify-content: center; text-align: center; }
+            .contact-links { justify-content: center; }
+            .theme-switch-wrapper { top: 10px; right: 10px; }
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Theme Toggle -->
-    <div class="theme-switch-wrapper">
-        <label class="theme-switch" for="checkbox">
-            <input type="checkbox" id="checkbox" />
-            <div class="slider round">
-                <span class="icon">🌙</span>
-                <span class="icon">☀️</span>
-            </div>
-        </label>
-    </div>
+    <!-- Theme Toggle -->
+    <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="checkbox">
+            <input type="checkbox" id="checkbox" />
+            <div class="slider round">
+                <span class="icon">🌙</span>
+                <span class="icon">☀️</span>
+            </div>
+        </label>
+    </div>
 
-    <header>
-        <h1>Abhishek R. Haibatpure</h1>
-        <p>Embedded Firmware | C Programming | Bachelor of Engineering (SPPU)</p>
-    </header>
+    <header>
+        <h1>Abhishek R. Haibatpure</h1>
+        <p>Embedded Firmware | C Programming | Bachelor of Engineering (SPPU)</p>
+    </header>
 
-    <div class="container">
-        
-        <!-- About Section -->
-        <section id="about">
-            <h2>about_me..</h2>
-            <p>I am an Electronics engineer focused on embedded systems firmware design, bare-metal programming, and microcontroller architectures. I enjoy exploring everything from hardware-level C programming to firmware concepts. I am willing to contribute under teamly environment where I would like to improve my skills and under the guidance learn new concepts which will be my extra-ordinary contribution for the team as well as on-going projects.</p>
-        </section>
+    <div class="container">
+        
+        <!-- About Section -->
+        <section id="about">
+            <h2>about_me..</h2>
+            <p>I am an Electronics engineer focused on embedded systems firmware design, bare-metal programming, and microcontroller architectures. I enjoy exploring everything from hardware-level C programming to firmware concepts. I am willing to contribute under teamly environment where I would like to improve my skills and under the guidance learn new concepts which will be my extra-ordinary contribution for the team as well as on-going projects.</p>
+        </section>
 
-        <!-- Technical Skills Section -->
-        <section id="skills">
-            <h2>technical_skills..</h2>
-            <div class="skills-grid">
-                <div class="skill-tag">C & Memory Management</div>
-                <div class="skill-tag">STM32 & PIC18 MCUs</div>
-                <div class="skill-tag">UART, I2C, SPI</div>
-                <div class="skill-tag">Proteus VSM</div>
-                <div class="skill-tag">STM32CubeIDE</div>
-                <div class="skill-tag">Microchip XC8</div>
-            </div>
-        </section>
+        <!-- Technical Skills Section -->
+        <section id="skills">
+            <h2>technical_skills..</h2>
+            <div class="skills-grid">
+                <div class="skill-tag">C & Memory Management</div>
+                <div class="skill-tag">STM32 & PIC18 MCUs</div>
+                <div class="skill-tag">UART, I2C, SPI</div>
+                <div class="skill-tag">Proteus VSM</div>
+                <div class="skill-tag">STM32CubeIDE</div>
+                <div class="skill-tag">Microchip XC8</div>
+            </div>
+        </section>
 
-        <!-- Projects Section -->
-        <section id="projects">
-            <h2>featured_projects/..</h2>
-            
-            <div class="project">
-                <h3>
-                    <span class="project-title-wrapper">Conversion of Mechanical Thermograph into Digital System</span>
-                    <a href="https://www.ijteonline.in/assets/uploads/issue_pdf/1760289720.pdf" target="_blank" class="github-link">Paper</a>
-                </h3>
-                <div class="project-meta">IMD, Pune | Apr 2024 | Project Lead</div>
-                <p><strong>Published Research:</strong> Indian Journal of Technical Education (UGC-CARE Indexed)</p>
-                <p>Role: Project Lead</p>
-                <p>Organization: India Meteorological Department (IMD), Pune</p>
-                <p>Date: April 2024</p>
-                <p>Publication: Published Research in the Indian Journal of Technical Education (UGC-CARE Indexed)</p>
-                <p>Details: You modernized legacy meteorological recording systems by developing an automated data-logging solution. This involved integrating a VL53L0X Time-of-Flight (ToF) sensor and an LCD interface to replace mechanical tracking mechanisms. This digital conversion successfully eliminated the need for manual data entry and tracking, achieving real-time measurement precision.</p>
-            </div>
+        <!-- Projects Section -->
+        <section id="projects">
+            <h2>featured_projects/..</h2>
+            
+            <div class="project">
+                <h3>
+                    <span class="project-title-wrapper">Conversion of Mechanical Thermograph into Digital System</span>
+                    <a href="https://www.ijteonline.in/assets/uploads/issue_pdf/1760289720.pdf" target="_blank" class="github-link">Paper</a>
+                </h3>
+                <div class="project-meta">IMD, Pune | Apr 2024 | Project Lead</div>
+                <p><strong>Published Research:</strong> Indian Journal of Technical Education (UGC-CARE Indexed)</p>
+                <p>Role: Project Lead</p>
+                <p>Organization: India Meteorological Department (IMD), Pune</p>
+                <p>Date: April 2024</p>
+                <p>Publication: Published Research in the Indian Journal of Technical Education (UGC-CARE Indexed)</p>
+                <p>Details: You modernized legacy meteorological recording systems by developing an automated data-logging solution. This involved integrating a VL53L0X Time-of-Flight (ToF) sensor and an LCD interface to replace mechanical tracking mechanisms. This digital conversion successfully eliminated the need for manual data entry and tracking, achieving real-time measurement precision.</p>
+            </div>
 
-            <div class="project">
-                <h3>
-                    <span class="project-title-wrapper">ATM Interface Simulation</span>
-                    <a href="https://github.com/haibatpureabhi0904" target="_blank" class="github-link">GitHub</a>
-                </h3>
-                <div class="project-meta">Aug 2026</div>
-                <p>Date: August 2026</p>
-                <p>Tech Stack: STM32, C Programming, Proteus VSM</p>
-                <p>Details: You designed and simulated a bare-metal STM32 Automated Teller Machine (ATM) controller. The core of this project was implementing a robust Finite State Machine (FSM) architecture to manage complex multi-peripheral interfacing. The hardware integrated into the simulation included an ADC joystick, a 4x4 matrix keypad, an 8-bit LCD, and multiplexed 7-segment displays. The entire functionality and logic were successfully validated using Proteus VSM.</p>
-<iframe class="project-video" 
-    src="https://www.youtube.com/embed/x4K6RzOKzXI" 
-    title="ATM Interface Simulation" 
-    frameborder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-    allowfullscreen>
+            <div class="project">
+                <h3>
+                    <span class="project-title-wrapper">ATM Interface Simulation</span>
+                    <a href="https://github.com/haibatpureabhi0904" target="_blank" class="github-link">GitHub</a>
+                </h3>
+                <div class="project-meta">Aug 2026</div>
+                <p>Date: August 2026</p>
+                <p>Tech Stack: STM32, C Programming, Proteus VSM</p>
+                <p>Details: You designed and simulated a bare-metal STM32 Automated Teller Machine (ATM) controller. The core of this project was implementing a robust Finite State Machine (FSM) architecture to manage complex multi-peripheral interfacing. The hardware integrated into the simulation included an ADC joystick, a 4x4 matrix keypad, an 8-bit LCD, and multiplexed 7-segment displays. The entire functionality and logic were successfully validated using Proteus VSM.</p>
+<iframe class="project-video" 
+    src="https://www.youtube.com/embed/x4K6RzOKzXI" 
+    title="ATM Interface Simulation" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
 </iframe>
-            </div>
+            </div>
 
-            <div class="project">
-                <h3>
-                    <span class="project-title-wrapper">GPS Wildlife Tracking</span>
-                    <a href="https://github.com/haibatpureabhi0904" target="_blank" class="github-link">GitHub</a>
-                </h3>
-                <div class="project-meta">Sep 2026</div>
-                <p>Date: September 2026</p>
-                <p>Tech Stack: Bare-Metal Firmware, UART, GPS/GSM</p>
-                <p>Details: You engineered a bare-metal firmware system specifically designed for real-time tracking. The system utilizes dual-UART processing to simultaneously handle data from GPS and GSM modules. A key technical achievement in this project was the development of an FPU-free (Floating-Point Unit free) integer geofencing algorithm capable of tracking boundary movements across a 40 square kilometer area, paired with an automated multi-modal alert system for when boundaries are breached.</p>
-<iframe class="project-video" 
-    src="https://www.youtube.com/embed/EKI0X5EKHjE" 
-    title="ATM Interface Simulation" 
-    frameborder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-    allowfullscreen>
+            <div class="project">
+                <h3>
+                    <span class="project-title-wrapper">GPS Wildlife Tracking</span>
+                    <a href="https://github.com/haibatpureabhi0904" target="_blank" class="github-link">GitHub</a>
+                </h3>
+                <div class="project-meta">Sep 2026</div>
+                <p>Date: September 2026</p>
+                <p>Tech Stack: Bare-Metal Firmware, UART, GPS/GSM</p>
+                <p>Details: You engineered a bare-metal firmware system specifically designed for real-time tracking. The system utilizes dual-UART processing to simultaneously handle data from GPS and GSM modules. A key technical achievement in this project was the development of an FPU-free (Floating-Point Unit free) integer geofencing algorithm capable of tracking boundary movements across a 40 square kilometer area, paired with an automated multi-modal alert system for when boundaries are breached.</p>
+<iframe class="project-video" 
+    src="https://www.youtube.com/embed/EKI0X5EKHjE" 
+    title="GPS Wildlife Tracking" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
 </iframe>
-            </div>
+            </div>
 
-            <div class="project">
-                <h3>
-                    <span class="project-title-wrapper">Smart Street Light Controller</span>
-                    <a href="https://github.com/haibatpureabhi0904" target="_blank" class="github-link">GitHub</a>
-                </h3>
-                <div class="project-meta">Sep 2026</div>
-                <p>Date: September 2026</p>
-                <p>Tech Stack: PIC18F4520 Microcontroller, Embedded C, UART</p>
-                <p>Details: You designed an automated, energy-efficient street lighting system driven by Light Dependent Resistor (LDR) sensors. The control logic was developed in Embedded C for a PIC18F4520 microcontroller. The system features a real-time UART communication protocol to enable remote fault monitoring, alongside a PORTB LED indication setup for immediate on-site hardware diagnostics.</p>
-<iframe class="project-video" 
-    src="https://www.youtube.com/embed/TfeUFVHg4PA" 
-    title="ATM Interface Simulation" 
-    frameborder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-    allowfullscreen>
+            <div class="project">
+                <h3>
+                    <span class="project-title-wrapper">Smart Street Light Controller</span>
+                    <a href="https://github.com/haibatpureabhi0904" target="_blank" class="github-link">GitHub</a>
+                </h3>
+                <div class="project-meta">Sep 2026</div>
+                <p>Date: September 2026</p>
+                <p>Tech Stack: PIC18F4520 Microcontroller, Embedded C, UART</p>
+                <p>Details: You designed an automated, energy-efficient street lighting system driven by Light Dependent Resistor (LDR) sensors. The control logic was developed in Embedded C for a PIC18F4520 microcontroller. The system features a real-time UART communication protocol to enable remote fault monitoring, alongside a PORTB LED indication setup for immediate on-site hardware diagnostics.</p>
+<iframe class="project-video" 
+    src="https://www.youtube.com/embed/TfeUFVHg4PA" 
+    title="Smart Street Light Controller" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
 </iframe>
-            </div>
-        </section>
+            </div>
+        </section>
 
-        <!-- Resume File Manager Section -->
-        <section id="resume">
-            <h2>updated_resume..</h2>
-            <div class="resume-controls">
-                
-                <div class="upload-section">
-                    <label for="resumeUpload" class="btn btn-upload">Upload Resume (Local)</label>
-                    <input type="file" id="resumeUpload" style="display: none;" accept=".pdf,.doc,.docx">
-                    <p id="uploadStatus"></p>
-                </div>
-                
-                <a href="Abhi_resume.pdf" id="downloadBtn" class="btn" download="Abhi_resume.pdf">Download Resume</a>
-                
-            </div>
-        </section>
+        <!-- Resume File Manager Section -->
+        <section id="resume">
+            <h2>updated_resume..</h2>
+            <div class="resume-controls">
+                
+                <div class="upload-section">
+                    <label for="resumeUpload" class="btn btn-upload">Upload Resume (Local)</label>
+                    <input type="file" id="resumeUpload" style="display: none;" accept=".pdf,.doc,.docx">
+                    <p id="uploadStatus"></p>
+                </div>
+                
+                <a href="Abhi_resume.pdf" id="downloadBtn" class="btn" download="Abhi_resume.pdf">Download Resume</a>
+                
+            </div>
+        </section>
 
-        <!-- Contact Section -->
-        <section id="contact">
-            <h2>Contact:..</h2>
-            <div class="contact-content">
-                <div class="contact-text-links">
-                    <p>Feel free to reach out using the contact details below.</p>
-                    <div class="contact-links">
-                        <a href="https://github.com/haibatpureabhi0904" target="_blank" class="github">GitHub</a>
-                        <a href="https://www.linkedin.com/in/abhishek-haibatpure-94285223b" target="_blank">LinkedIn</a>
-                        <button id="openInstaBtn" class="instagram">Instagram</button>
-                        <a href="mailto:haibatpureabhishek@gmail.com">Email</a>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2>Contact:..</h2>
+            <div class="contact-content">
+                <div class="contact-text-links">
+                    <p>Feel free to reach out using the contact details below.</p>
+                    <div class="contact-links">
+                        <a href="https://github.com/haibatpureabhi0904" target="_blank" class="github">GitHub</a>
+                        <a href="https://www.linkedin.com/in/abhishek-haibatpure-94285223b" target="_blank">LinkedIn</a>
+                        <button id="openInstaBtn" class="instagram">Instagram</button>
+                        <a href="mailto:haibatpureabhishek@gmail.com">Email</a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    </div>
+    </div>
 
-    <footer>
-        <p>&copy; 2026 Abhishek Haibatpure. All rights reserved.</p>
-    </footer>
+    <footer>
+        <p>&copy; 2026 Abhishek Haibatpure. All rights reserved.</p>
+    </footer>
 
-    <!-- Instagram Modal (Hidden by default) -->
-    <div id="instaModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <h3 style="margin-top: 0; color: #d946ef; font-family: 'Fira Code', monospace;">> Scan to Connect_</h3>
-            
-            <img src="insta_id.jpeg" alt="Instagram QR Code" class="modal-qr-img">
-            
-            <a href="https://www.instagram.com/ab.hi_09?stkn=NjZ6NzcxNDNjNDI2" target="_blank" class="btn" style="display: block; width: 100%; box-sizing: border-box; border-color: #d946ef; color: var(--text-bright);">Open in Instagram App</a>
-        </div>
-    </div>
+    <!-- Instagram Modal (Hidden by default) -->
+    <div id="instaModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h3 style="margin-top: 0; color: #d946ef; font-family: 'Fira Code', monospace;">> Scan to Connect_</h3>
+            
+            <img src="insta_id.jpeg" alt="Instagram QR Code" class="modal-qr-img">
+            
+            <a href="https://www.instagram.com/ab.hi_09?stkn=NjZ6NzcxNDNjNDI2" target="_blank" class="btn" style="display: block; width: 100%; box-sizing: border-box; border-color: #d946ef; color: var(--text-bright);">Open in Instagram App</a>
+        </div>
+    </div>
 
-    <!-- JavaScript block -->
-    <script>
-        // --- Theme Toggle Logic ---
-        const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
-        const currentTheme = localStorage.getItem('theme');
+    <!-- JavaScript block -->
+    <script>
+        // --- Theme Toggle Logic ---
+        const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+        const currentTheme = localStorage.getItem('theme');
 
-        if (currentTheme) {
-            document.body.classList.add(currentTheme);
-            if (currentTheme === 'light-mode') {
-                toggleSwitch.checked = true;
-            }
-        }
+        if (currentTheme) {
+            document.body.classList.add(currentTheme);
+            if (currentTheme === 'light-mode') {
+                toggleSwitch.checked = true;
+            }
+        }
 
-        function switchTheme(e) {
-            if (e.target.checked) {
-                document.body.classList.add('light-mode');
-                localStorage.setItem('theme', 'light-mode');
-            } else {
-                document.body.classList.remove('light-mode');
-                localStorage.setItem('theme', 'dark-mode');
-            }    
-        }
-        toggleSwitch.addEventListener('change', switchTheme, false);
+        function switchTheme(e) {
+            if (e.target.checked) {
+                document.body.classList.add('light-mode');
+                localStorage.setItem('theme', 'light-mode');
+            } else {
+                document.body.classList.remove('light-mode');
+                localStorage.setItem('theme', 'dark-mode');
+            }    
+        }
+        toggleSwitch.addEventListener('change', switchTheme, false);
 
 
-        // --- Resume Upload Logic ---
-        const resumeUpload = document.getElementById('resumeUpload');
-        const downloadBtn = document.getElementById('downloadBtn');
-        const uploadStatus = document.getElementById('uploadStatus');
-        let fileURL = null;
+        // --- Resume Upload Logic ---
+        const resumeUpload = document.getElementById('resumeUpload');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const uploadStatus = document.getElementById('uploadStatus');
+        let fileURL = null;
 
-        resumeUpload.addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            
-            if (file) {
-                if (fileURL) {
-                    URL.revokeObjectURL(fileURL);
-                }
-                fileURL = URL.createObjectURL(file);
-                downloadBtn.href = fileURL;
-                downloadBtn.download = file.name;
-                uploadStatus.innerHTML = `> [Success] Loaded file: <strong>${file.name}</strong>`;
-                downloadBtn.style.boxShadow = "0 0 30px var(--accent-blue)";
-                setTimeout(() => { downloadBtn.style.boxShadow = "none"; }, 1000);
-            }
-        });
+        resumeUpload.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            
+            if (file) {
+                if (fileURL) {
+                    URL.revokeObjectURL(fileURL);
+                }
+                fileURL = URL.createObjectURL(file);
+                downloadBtn.href = fileURL;
+                downloadBtn.download = file.name;
+                uploadStatus.innerHTML = `> [Success] Loaded file: <strong>${file.name}</strong>`;
+                downloadBtn.style.boxShadow = "0 0 30px var(--accent-blue)";
+                setTimeout(() => { downloadBtn.style.boxShadow = "none"; }, 1000);
+            }
+        });
 
-        // --- Instagram Modal Logic ---
-        const instaModal = document.getElementById("instaModal");
-        const openInstaBtn = document.getElementById("openInstaBtn");
-        const closeBtn = document.querySelector(".close-btn");
+        // --- Instagram Modal Logic ---
+        const instaModal = document.getElementById("instaModal");
+        const openInstaBtn = document.getElementById("openInstaBtn");
+        const closeBtn = document.querySelector(".close-btn");
 
-        openInstaBtn.onclick = function() {
-            instaModal.style.display = "flex";
-        }
-        closeBtn.onclick = function() {
-            instaModal.style.display = "none";
-        }
-        window.onclick = function(event) {
-            if (event.target == instaModal) {
-                instaModal.style.display = "none";
-            }
-        }
-    </script>
+        openInstaBtn.onclick = function() {
+            instaModal.style.display = "flex";
+        }
+        closeBtn.onclick = function() {
+            instaModal.style.display = "none";
+        }
+        window.onclick = function(event) {
+            if (event.target == instaModal) {
+                instaModal.style.display = "none";
+            }
+        }
+    </script>
 </body>
 </html>
