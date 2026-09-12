@@ -234,6 +234,9 @@
         section:nth-child(3) { animation-delay: 0.3s; }
         section:nth-child(4) { animation-delay: 0.4s; }
         section:nth-child(5) { animation-delay: 0.5s; }
+        section:nth-child(6) { animation-delay: 0.6s; }
+        section:nth-child(7) { animation-delay: 0.7s; }
+        section:nth-child(8) { animation-delay: 0.8s; }
 
         @keyframes slideUp {
             from { opacity: 0; transform: translateY(20px); }
@@ -306,39 +309,48 @@
             box-shadow: 0 0 8px var(--accent-green);
         }
 
-        /* Project Styles */
-        .project {
-            margin-bottom: 3.5rem;
-            padding-bottom: 2rem;
+        /* Project & Credentials Styles */
+        .project, .cert-item {
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
             border-bottom: 1px dashed var(--trace-color);
             transition: all 0.3s ease;
         }
 
-        .project:last-child {
+        .project:last-child, .cert-item:last-child {
             margin-bottom: 0;
             border-bottom: none;
             padding-bottom: 0;
         }
-        
-        .project:hover h3::before {
-            color: var(--accent-green);
+
+        /* Education Layout Fix */
+        .edu-item {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px dashed var(--trace-color);
+            transition: all 0.3s ease;
         }
 
-        .project h3 {
+        .edu-item:last-child {
+            margin-bottom: 0;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .project h3, .edu-item h3, .cert-item h3 {
             margin: 0 0 8px 0;
             font-size: 1.3rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
+            display: block;
+            width: 100%;
         }
 
-        .project h3::before {
+        .project h3::before, .edu-item h3::before, .cert-item h3::before {
             content: "{} ";
             color: var(--accent-blue);
             margin-right: 10px;
-            transition: color 0.3s ease;
         }
         
         .project-title-wrapper {
@@ -346,7 +358,7 @@
             align-items: center;
         }
 
-        .project-meta {
+        .project-meta, .edu-meta {
             font-family: 'Fira Code', monospace;
             font-size: 0.85rem;
             color: var(--accent-green);
@@ -355,6 +367,10 @@
             display: inline-block;
             padding: 4px 10px;
             border-radius: 4px;
+        }
+
+        .edu-meta {
+            margin-bottom: 0;
         }
 
         .github-link {
@@ -368,6 +384,7 @@
             font-family: 'Fira Code', monospace;
             text-transform: uppercase;
             font-weight: 600;
+            float: right;
         }
         
         .github-link:hover {
@@ -394,11 +411,6 @@
             .project-video {
                 height: 250px;
             }
-        }
-
-        .project:hover .project-video {
-            border-color: var(--accent-blue);
-            box-shadow: 0 5px 15px var(--glow-blue);
         }
 
         ul {
@@ -657,6 +669,23 @@
             <p>I am an Electronics engineer focused on embedded systems firmware design, bare-metal programming, and microcontroller architectures. I enjoy exploring everything from hardware-level C programming to firmware concepts. I am willing to contribute under teamly environment where I would like to improve my skills and under the guidance learn new concepts which will be my extra-ordinary contribution for the team as well as on-going projects.</p>
         </section>
 
+        <!-- Education Details Section -->
+        <section id="education">
+            <h2>education...</h2>
+            <div class="edu-item">
+                <h3>Bachelor of Engineering (B.E.) in Electronics & Telecommunication</h3>
+                <div class="edu-meta">Savitribai Phule Pune University (SPPU) | Graduated | 2024 | 8.32 CGPA</div>
+            </div>
+            <div class="edu-item">
+                <h3>HSC in PCM-Electronics</h3>
+                <div class="edu-meta">Maharashtra Udaygiri Mahavidyalaya, Udgir | 2020 | 74.62 %</div>
+            </div>
+            <div class="edu-item">
+                <h3>SSC</h3>
+                <div class="edu-meta">Vidya Vardhini High School, Udgir | 2018 | 85.00 %</div>
+            </div>
+        </section>
+
         <!-- Technical Skills Section -->
         <section id="skills">
             <h2>technical_skills...</h2>
@@ -677,7 +706,7 @@
             <div class="project">
                 <h3>
                     <span class="project-title-wrapper">Conversion of Mechanical Thermograph into Digital System</span>
-                    <a href="https://www.ijteonline.in/assets/uploads/issue_pdf/1760289720.pdf" target="_blank" class="github-link">Paper-  Page No.57</a>
+                    <a href="https://www.ijteonline.in/assets/uploads/issue_pdf/1760289720.pdf" target="_blank" class="github-link">Research Paper- Page No.57</a>
                 </h3>
                 <div class="project-meta">IMD, Pune | Apr 2024 | Project Lead</div>
                 <p><strong>Published Research:</strong> Indian Journal of Technical Education (UGC-CARE Indexed)</p>
@@ -743,6 +772,58 @@
             </div>
         </section>
 
+        <!-- Certifications Section -->
+        <section id="certifications">
+            <h2>certifications...</h2>
+            <div class="cert-item">
+                <h3>
+                    <span>Advance Diploma in Embedded Systems</span>
+                    <a href="certificate1.pdf" target="_blank" class="github-link">Certificate</a>
+                </h3>
+                <div class="project-meta">Feb, 2026 - Jun, 2026</div>
+                <p><strong>Skills Learned: </strong>C, Embedded C, Microcontroller Peripherals, Sensor Interfacing</p>
+            </div>
+            <div class="cert-item">
+                <h3>
+                    <span>C Programming for Embedded Applications</span>
+                    <a href="certificate2.pdf" target="_blank" class="github-link">Certificate</a>
+                </h3>
+                <div class="project-meta">Sep, 2026</div>
+                <p><strong>Skills Learned: </strong> C,Embedded C,Floating point math, Memory Management, Bitwise Operators</p>
+            </div>
+        </section>
+
+        <!-- Awards Section -->
+        <section id="awards">
+            <h2>awards...</h2>
+            <div class="cert-item">
+                <h3>
+                    <span>Rising Star Award</span>
+                    <a href="certificate3.pdf" target="_blank" class="github-link">Certificate</a>
+                </h3>
+                <div class="project-meta">Feb, 2026 - Jun, 2026</div>
+                <p>Recognition for outstanding performance and rapid technical contributions. Onsite error detection and problem solving as well as successful installations and training.</p>
+            </div>
+            <div class="cert-item">
+                <h3>
+                    <span>Academic Recognition</span>
+                    <a href="certificate4.pdf" target="_blank" class="github-link">Certificate</a>
+                </h3>
+                <div class="project-meta">Apr, 2025</div>
+                <p>Securing Second Rank in Academic Year 2023-24 of B.E. Electronics and Telecommunication.</p>
+            </div>
+        </section>
+
+        <!-- Extracurricular Activities Section -->
+        <section id="extracurricular">
+            <h2>extracurricular_activities...</h2>
+            <ul>
+                <li>Served as <strong>Project Lead</strong> at the India Meteorological Department (IMD), Pune, managing multi-disciplinary engineering collaboration and hardware deployment.</li>
+                <li>Actively participate in technical hardware simulation design workshops utilizing Proteus VSM and microcontroller test benches.</li>
+                <li>Engaged in peer mentoring regarding advanced C memory management, pointer arithmetic, and algorithmic optimization.</li>
+            </ul>
+        </section>
+
         <!-- Resume File Manager Section -->
         <section id="resume">
             <h2>updated_resume..</h2>
@@ -803,15 +884,12 @@
         updateClock();
 
         // --- Live Cloud Visitor Counter Logic (Using CountAPI) ---
-        // This securely tracks and increments real site visitors globally once hosted.
         async function initVisitorCounter() {
             try {
-                // Calls a free public counting API (namespace: abhishek-portfolio, key: visits)
                 const response = await fetch('https://api.countapi.xyz/hit/abhishek-portfolio/visits');
                 const data = await response.json();
                 document.getElementById('visitorCount').textContent = data.value.toLocaleString();
             } catch (error) {
-                // Fallback mechanism in case network blocks the API
                 let fallbackVisits = localStorage.getItem('siteVisits');
                 if (!fallbackVisits) {
                     fallbackVisits = 20;
@@ -848,7 +926,7 @@
 
         // --- Instagram Modal Logic ---
         const instaModal = document.getElementById("instaModal");
-        mainOpenBtn = document.getElementById("openInstaBtn");
+        const mainOpenBtn = document.getElementById("openInstaBtn");
         const closeBtn = document.querySelector(".close-btn");
 
         mainOpenBtn.onclick = function() {
